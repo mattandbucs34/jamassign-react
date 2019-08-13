@@ -1,0 +1,19 @@
+{
+  "name": "jamassign-react",
+  "version": "1.0.0",
+  "description": "assigning application",
+  "main": "index.js",
+  "scripts": {
+    "test": "export NODE_ENV=test|| set NODE_ENV=test&& jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattandbucs34/jamassign-react.git"
+  },
+  "author": "Matt Johnson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattandbucs34/jamassign-react/issues"
+  },
+  "homepage": "https://github.com/mattandbucs34/jamassign-react#readme"
+}
