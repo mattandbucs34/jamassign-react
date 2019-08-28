@@ -3,8 +3,17 @@
   "version": "1.0.0",
   "description": "assigning application",
   "main": "index.js",
+  "engines": {
+    "node": "11.1.0",
+    "npm:": "6.4.1"
+  },
   "scripts": {
-    "test": "export NODE_ENV=test|| set NODE_ENV=test&& jasmine"
+    "client-install": "npm install --prefix views",
+    "test": "export NODE_ENV=test|| set NODE_ENV=test&& jasmine",
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "views": "npm run start --prefix views",
+    "dev": "concurrently \"npm run server\" \"npm run views\""
   },
   "repository": {
     "type": "git",
@@ -15,5 +24,31 @@
   "bugs": {
     "url": "https://github.com/mattandbucs34/jamassign-react/issues"
   },
-  "homepage": "https://github.com/mattandbucs34/jamassign-react#readme"
+  "homepage": "https://github.com/mattandbucs34/jamassign-react#readme",
+  "devDependencies": {
+    "jasmine": "^3.4.0",
+    "request": "^2.88.0"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "concurrently": "^4.1.1",
+    "cookie-session": "^1.3.3",
+    "cryptiles": "^4.1.3",
+    "dotenv": "^8.0.0",
+    "event-stream": "^4.0.1",
+    "express": "^4.17.1",
+    "express-flash": "0.0.2",
+    "express-session": "^1.16.2",
+    "express-validator": "^6.1.1",
+    "http-proxy-middleware": "^0.19.1",
+    "morgan": "^1.9.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "path-parser": "^4.2.0",
+    "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3",
+    "save": "^2.4.0",
+    "sequelize": "^5.14.0"
+  }
 }
