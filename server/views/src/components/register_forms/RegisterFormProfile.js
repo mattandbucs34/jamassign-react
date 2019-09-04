@@ -26,7 +26,7 @@ class RegisterForm extends Component {
     return(
       <div className="row">
         <div className="col-md-6 mx-auto mt-3">
-          <form onSubmit={this.props.handleSubmit} className="shadow p-3 rounded">
+          <form onSubmit={this.props.handleSubmit} className="jam-form">
             <h3>Enter Profile Information</h3>
             <hr></hr>
             {this.renderFields()}

@@ -12,9 +12,14 @@ class Header extends Component {
         return;
       case false:
         return (
-          <Nav.Item>
-            <Nav.Link href="/register">Register</Nav.Link>
-          </Nav.Item>
+          <Nav>
+            <Nav.Item>
+              <Nav.Link href="/sign_in">Sign In</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="/register">Register</Nav.Link>
+            </Nav.Item>
+          </Nav>
         )
       default:
         return (
@@ -24,6 +29,7 @@ class Header extends Component {
         )
     }
   }
+  
   render() {
     return (
       <Navbar expand='lg' bg='dark' variant='dark'>
