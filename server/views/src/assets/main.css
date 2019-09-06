@@ -12,3 +12,14 @@
 .right {
   float: right;
 }
+
+.name-table {
+  width: 100%;
+  border: 3px inset;
+}
+
+.name-cell {
+  padding: 5px;
+  border-top: double grey;
+  border-bottom: double grey;
+}

@@ -1,6 +1,6 @@
-const Profile = require('../models/profile').Profile;
+const Profile = require('../models').Profile;
 
-module.export = {
+module.exports = {
   create(req, callback) {
     return Profile.create({
       firstName: req.body.firstName,
@@ -17,6 +17,22 @@ module.export = {
     }).catch((err) => {
       console.log(err);
       callback(err)
+    })
+  },
+
+  getProfiles(callback) {
+    console.log("Get Profiles Query")
+    let result = {};
+    Profile.findAll({
+      order: [['lastName', 'ASC']]
+    })
+    .then((profileList) => {
+      // console.log(profileList);
+      //result['sortLastName'] = profileList;
+      callback(null, profileList);
+    }).catch((err) => {
+      console.log("List Error: " + err.name);
+      callback(err);
     })
   }
 }

@@ -26,8 +26,7 @@ app.use(
 app.use(flash());
 
 require('./config/passportConfig').init(app);
-// require('./config/routeConfig');
-require('./routes/user')(app);
+require('./config/routeConfig').init(app);
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;

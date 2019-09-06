@@ -23,9 +23,14 @@ class Header extends Component {
         )
       default:
         return (
-          <Nav.Item>
-            <Nav.Link href="/users/logout">Log Out</Nav.Link>
-          </Nav.Item>
+          <Nav>
+            <Nav.Item>
+              <Nav.Link href='/list-of-officials'>List</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="/users/logout">Log Out</Nav.Link>
+            </Nav.Item>
+          </Nav>
         )
     }
   }
@@ -39,12 +44,6 @@ class Header extends Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="text-right justify-content-end">
           <Nav>
-            <Nav.Item>
-              <Nav.Link href="#">Link 1</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="#">Link 2</Nav.Link>
-            </Nav.Item>
             {this.renderLogin()}
           </Nav>
         </Navbar.Collapse>

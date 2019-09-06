@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/mattandbucs34/jamassign-react#readme",
   "devDependencies": {
+    "faker": "^4.1.0",
     "jasmine": "^3.4.0",
     "request": "^2.88.0"
   },
