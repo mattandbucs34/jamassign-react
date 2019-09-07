@@ -28,7 +28,7 @@ module.exports = {
       })
     }else {
       req.flash("warning", "You must be logged in to do this");
-      res.send({ error: 'You must be ${<a href="/user/sign_in">logged in<a>} to view this' });
+      res.send({ error: 'You must be logged in to view this' });
     }
   }
 }
