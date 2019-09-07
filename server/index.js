@@ -17,10 +17,10 @@ app.use(express.static(path.join(__dirname, "..", "assets")));
 app.use(logger('dev'));
 app.use(
   session({
-    maxAge: 6.048e+8,
     secret: process.env.cookieSecret,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {maxAge: 6.048e+8}
   })
 );
 app.use(flash());
