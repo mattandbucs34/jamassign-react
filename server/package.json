@@ -13,7 +13,8 @@
     "start": "node index.js",
     "server": "nodemon index.js",
     "views": "npm run start --prefix views",
-    "dev": "concurrently \"npm run server\" \"npm run views\""
+    "dev": "concurrently \"npm run server\" \"npm run views\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=fals npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
