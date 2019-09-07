@@ -32,7 +32,14 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
-app.use(express.static('public'));
+// app.use(express.static('public'));
+
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static('views/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'views', 'build', 'index.html'));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 
