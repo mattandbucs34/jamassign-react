@@ -1,4 +1,5 @@
 const Profile = require('../models').Profile;
+const User = require('../models').User;
 
 module.exports = {
   create(req, callback) {
@@ -27,9 +28,13 @@ module.exports = {
       order: [['lastName', 'ASC']]
     })
     .then((profileList) => {
-      // console.log(profileList);
-      //result['sortLastName'] = profileList;
-      callback(null, profileList);
+      result['profileList'] = profileList;
+
+      User.findAll()
+      .then((user) => {
+        result['user'] = user;
+        callback(null, result);
+      });
     }).catch((err) => {
       console.log("List Error: " + err.name);
       callback(err);

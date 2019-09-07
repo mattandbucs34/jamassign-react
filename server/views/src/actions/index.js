@@ -8,7 +8,7 @@ export const fetchUser = () => async dispatch => {
 
 export const registerUser = (formValues, history) => async dispatch => {
   const res = await axios.post('/users/register', formValues.values);
-  history.push('/');
+  history.push('/dashboard');
   dispatch({ type: ADD_USER, payload: res.config.data });
 };
 
