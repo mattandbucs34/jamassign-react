@@ -18,8 +18,10 @@
   border: 3px inset;
 }
 
+.name-row{
+  border: inset;
+}
 .name-cell {
   padding: 5px;
-  border-top: double grey;
-  border-bottom: double grey;
+  
 }

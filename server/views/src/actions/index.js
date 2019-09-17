@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { ADD_USER, FETCH_USER, SIGN_IN_USER, GET_PROFILE_LIST } from './types';
+import {
+  ADD_USER,
+  FETCH_USER,
+  GET_PROFILE_LIST,
+  SIGN_IN_USER,
+} from './types';
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get('/users/current_user');
@@ -12,9 +17,8 @@ export const registerUser = (formValues, history) => async dispatch => {
   dispatch({ type: ADD_USER, payload: res.config.data });
 };
 
-export const signInUser = (formValues, history) => async dispatch => {
+export const signInUser = (formValues) => async dispatch => {
   const res = await axios.post('/users/sign_in', formValues.values);
-  history.push('/dashboard');
   dispatch({ type: SIGN_IN_USER, payload: res.data });
 };
 

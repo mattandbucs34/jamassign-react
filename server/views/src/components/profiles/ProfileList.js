@@ -1,8 +1,8 @@
 import Modal from 'react-bootstrap/Modal';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchProfiles } from '../../actions';
+import * as actions from '../../actions';
 
 class ProfileList extends Component {
   constructor(props) {
@@ -15,10 +15,8 @@ class ProfileList extends Component {
   }
 
   componentDidMount() {
+    this.props.fetchUser();
     this.props.fetchProfiles();
-  }
-
-  componentDidUpdate() {
   }
 
   handleClose() {
@@ -35,6 +33,7 @@ class ProfileList extends Component {
         if(users.id === this.state.clickedId) {
           return <a href={'mailto:' + users.userEmail} key={users.id}>{users.userEmail}</a>
         }
+        return null;
       })
     }
   }
@@ -60,6 +59,7 @@ class ProfileList extends Component {
             </div>
           )
         }
+        return null;
       })
     }
   }
@@ -68,48 +68,66 @@ class ProfileList extends Component {
     if(this.props.profile.profileList != null) {
       return this.props.profile.profileList.map(profiles => {
         return (
-          <tr key={profiles.id}>
-            <td className='name-cell'>
-              <Link to="#" onClick={() => this.handleShow(profiles.id)}>{profiles.lastName}, {profiles.firstName}</Link>
-            </td>
-          </tr>
+          <table className='name-table'>
+          <tbody>
+            <tr key={profiles.id} className='name-row'>
+              <td className='name-cell'>
+                <Link to="#" onClick={() => this.handleShow(profiles.id)}>{profiles.lastName}, {profiles.firstName}</Link>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         )
       })
     }
   }
 
-  renderError() {
-    if(this.props.profile.error){
+  renderContent() {
+    if(!this.props.profile){
+      return null
+    }else if(this.props.profile.auth === false) {
+      return <Redirect to={{
+        pathname: '/',
+        state: {
+          referrer: '/list-of-officials',
+          message: this.props.profile.message,
+          type: this.props.profile.type
+        }
+      }} />
+    }else if(this.props.auth !== undefined && this.props.auth.user === false) {
+      return <Redirect to={{
+        pathname: '/',
+        state: {
+          referrer: '/list-of-officials',
+          message: this.props.profile.message,
+          type: this.props.profile.type
+        }
+      }} />
+    }else if(this.props.auth && this.props.profile) {
       return (
-        <div className='alert alert-danger alert-dismissable fade show'  role='alert'>
-          <button type='button' className='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
-          {this.props.profile.error}
+        <div>
+          <h2>List of Officials</h2>
+          <hr />
+          {this.renderNames()}
+          <Modal show={this.state.show} onHide={() => this.handleClose()}>
+            {this.renderModalBody()}
+          </Modal>
         </div>
       )
     }
+    return null
   }
 
   render() {
-    return (
-      <div>
-        <h2>List of Officials</h2>
-        <hr />
-        {this.renderError()}
-        <table className='name-table'>
-          <tbody>
-            {this.renderNames()}
-          </tbody>
-        </table>
-        <Modal show={this.state.show} onHide={() => this.handleClose()}>
-          {this.renderModalBody()}
-        </Modal>
-      </div>
+    return(
+      <div>{this.renderContent()}</div>
     )
   }
 }
 
-function mapStateToProps( profile ) {
-  return profile
+function mapStateToProps( { auth, profile, user } ) {
+  console.log({ auth, profile, user })
+  return { profile, user }
 }
 
-export default connect(mapStateToProps, { fetchProfiles })(ProfileList);
+export default connect(mapStateToProps, actions)(withRouter(ProfileList));

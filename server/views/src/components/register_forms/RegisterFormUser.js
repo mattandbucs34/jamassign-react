@@ -19,7 +19,7 @@ class RegisterUserPage extends Component {
           <hr></hr>
           {this.renderFields()}
           <hr></hr>
-          <button type="submit" className="btn btn-primary">Continue<i className="fas fa-arrow-right" style={{marginLeft: '4px'}}></i></button>
+          <button type="submit" className="btn btn-primary right">Continue<i className="fas fa-arrow-right" style={{marginLeft: '4px'}}></i></button>
         </form>
       </div>
     </div>

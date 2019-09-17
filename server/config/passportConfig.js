@@ -10,15 +10,14 @@ module.exports = {
 
     passport.use(new LocalStrategy({
       usernameField: 'userEmail' 
-    }, (userEmail, password, done) => {
-      User.findOne({
-        where: {userEmail}
-      }).then((user) => {
-        if(!user || !authHelper.comparePass(password, user.password)) {
-          return done(null, false, {message: "Invalid username or password"});
-        }
-        return done(null, user);
-      })
+    }, async (userEmail, password, callback) => {
+      const user = await User.findOne({ where: { userEmail }});
+    
+      if(!user || !authHelper.comparePass(password, user.password)) {
+        return callback(null, false, {message: "Email or Password not found"});
+      }
+      
+      return callback(null, user);
     }));
 
     passport.serializeUser((user, callback) => {

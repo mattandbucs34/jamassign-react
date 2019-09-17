@@ -1,59 +1,50 @@
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { fetchUser } from '../actions';
+
+import CoordinatorNav from './navigation_bars/CoordinatorNav';
+import DefaultNav from './navigation_bars/DefaultNav';
+import NavbarInitial from './navigation_bars/InitialNav';
+
 
 class Header extends Component {
+ 
   renderLogin() {
-    switch (this.props.auth) {
+    switch (this.props.role) {
+      case undefined:
       case null:
-        return;
-      case false:
-        return (
-          <Nav>
-            <Nav.Item>
-              <Nav.Link href="/sign_in">Sign In</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="/register">Register</Nav.Link>
-            </Nav.Item>
-          </Nav>
-        )
+        return <NavbarInitial />
+      case 'coordinator':
+        return <CoordinatorNav />
       default:
-        return (
-          <Nav>
-            <Nav.Item>
-              <Nav.Link href='/list-of-officials'>List</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="/users/logout">Log Out</Nav.Link>
-            </Nav.Item>
-          </Nav>
-        )
+        return <DefaultNav />
     }
   }
   
   render() {
     return (
-      <Navbar expand='lg' bg='dark' variant='dark'>
-        <Link to="/">
-          <Navbar.Brand>JAM Officials</Navbar.Brand>
+      <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
+        <Link to={(this.props.role === 'coordinator') ? '/dashboard' : '/'} className='navbar-brand'>
+          JAM Officials
         </Link>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav" className="text-right justify-content-end">
-          <Nav>
-            {this.renderLogin()}
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+        <button className='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation'>
+          <span className='navbar-toggler-icon'></span>
+        </button>
+        <div className='collapse navbar-collapse' id='navbarNavAltMarkup'>
+          {this.renderLogin()}
+        </div>
+      </nav>
     )
   }
 }
 
-function mapStateToProps({ auth }) {
-  return { auth }
+function mapStateToProps({ auth, user }) {
+  // console.log({ auth })
+  return { 
+    role: auth.role, 
+    user 
+  }
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, { fetchUser })(Header);

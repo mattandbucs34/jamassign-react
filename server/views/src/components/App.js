@@ -5,8 +5,8 @@ import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
+import AddNewsPage from './news/AddNewsPage';
 import Dashboard from './Dashboard';
-//import Flash from './Flash';
 import Landing from './Landing';
 import Header from './Header';
 import ProfileList from './profiles/ProfileList';
@@ -22,12 +22,12 @@ class App extends Component {
     return (
       <Container>
         <Header />
-        {/* <Flash /> */}
         <Route exact path="/" component={Landing} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/sign_in" component={SignInPage} />
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/list-of-officials' component={ProfileList} />
+        <Route path='/add-news' component={AddNewsPage} />
       </Container>
     )
   }

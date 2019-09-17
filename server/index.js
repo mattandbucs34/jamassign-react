@@ -25,6 +25,7 @@ app.use(
 );
 app.use(flash());
 
+
 require('./config/passportConfig').init(app);
 require('./config/routeConfig').init(app);
 

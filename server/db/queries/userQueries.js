@@ -29,6 +29,5 @@ module.exports = {
       console.log(err.name);
       callback(err);
     })
-  },
-
+  }
 }

@@ -22,7 +22,6 @@ module.exports = {
   },
 
   getProfiles(callback) {
-    console.log("Get Profiles Query")
     let result = {};
     Profile.findAll({
       order: [['lastName', 'ASC']]
@@ -30,7 +29,7 @@ module.exports = {
     .then((profileList) => {
       result['profileList'] = profileList;
 
-      User.findAll()
+      User.findAll({ attributes: {exclude: ['password', 'createdAt', 'updatedAt']}})
       .then((user) => {
         result['user'] = user;
         callback(null, result);

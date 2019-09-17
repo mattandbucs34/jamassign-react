@@ -14,7 +14,7 @@ module.exports = class ApplicationPolicy {
   }
 
   _isCoordinator() {
-    return this.user && this.user.role == "premium";
+    return this.user && this.user.role == "coordinator";
   }
 
   new() {

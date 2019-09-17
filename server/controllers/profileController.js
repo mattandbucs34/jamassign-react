@@ -14,21 +14,22 @@ module.exports = {
 
   showProfiles(req, res, next) {
     const authorized = new Authorizer(req.user).show();
-    console.log(authorized);
 
     if(authorized) {
       profileQueries.getProfiles((err, result) => {
         if(err || result == null) {
           console.log("List Error!");
         }else {
-          console.log("Successful List Gathering!");
           req.flash("success", "Look at all these names!");
           res.send(result);
         }
       })
     }else {
-      req.flash("warning", "You must be logged in to do this");
-      res.send({ error: 'You must be logged in to view this' });
+      res.send({
+        message: 'You must be logged in to view this',
+        type: 'warning',
+        auth: false
+      });
     }
   }
 }
