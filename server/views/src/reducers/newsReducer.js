@@ -1,9 +1,12 @@
-import { ADD_NEWS, GET_NEWS_VIEW } from '../actions/newsTypes';
+import {
+  ADD_NEWS,
+  FETCH_NEWS
+} from '../actions/types';
 
 export default function(state = {}, action) {
   switch(action.type) {
     case ADD_NEWS:
-    case GET_NEWS_VIEW:
+    case FETCH_NEWS:
       return action.payload;
     default:
       return state;

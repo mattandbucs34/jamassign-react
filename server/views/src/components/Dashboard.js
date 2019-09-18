@@ -3,48 +3,53 @@ import { Link, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
-import Messages from './Messages';
+import News from './news/ShowNews';
 
 class Dashboard extends Component {
-  componentDidMount() {
-    this.props.fetchUser();
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      isLoading: true
+    }
+  }
+  
+  async componentDidMount() {
+    try {
+      await this.props.viewDashboard();
+      this.setState({ isLoading: false })
+    }catch(err) {
+      this.setState({
+        err,
+        isLoading: false
+      })
+    }
   }
 
   renderContent() {
-    switch(this.props.auth.user){
-      default:
-        return null;
-      case false:
-        return <Redirect to={{
-          pathname: '/',
-          state: { 
-            referrer: '/dashboard',
-            type: 'warning',
-            message: 'You must be logged in to do that'
-            }
-          }} />
-      case true:
-        return (
-          <div style={{ textAlign: 'center'}}>
-            <h1>
-              User Dashboard
-            </h1>
-            <Messages message={this.state.flash.message} type={this.state.flash.type} />
-          </div>
-        )
+    if(this.state.isLoading) {
+			return "Please wait...";
+		}else if(!this.props.views.auth) {
+			return <Redirect to='/' />
+		}else {
+      return (
+        <div style={{ textAlign: 'center'}}>
+          <h1>
+            User Dashboard
+          </h1>
+          <News />
+        </div>
+      )
     }
   }
 
   render() {
-    return (
-      <div>{this.renderContent()}</div>
-    )
+    return this.renderContent()
   }
 }
 
-function mapStateToProps({ auth, user, news }) {
-  console.log({ auth, user, news })
-  return { auth, user, news };
+function mapStateToProps({ user, views }) {
+  return { user, views };
 }
 
 export default connect(mapStateToProps, actions)(withRouter(Dashboard));

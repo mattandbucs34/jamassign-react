@@ -8,8 +8,8 @@ module.exports = {
       console.log('You are not authorized');
       res.send({
         auth: false,
-        message: 'You are not authorized',
-        messageType: 'danger'
+        message: 'You are not authorized. You must log in!',
+        type: 'danger'
       });
     }else {
       console.log(`${req.flash}`)
@@ -34,5 +34,18 @@ module.exports = {
         });
       }
     });
+  },
+
+  async showNews(req, res) {
+    try {
+      const result = await newsQuery.show();
+      res.send({...result});
+    }catch(err) {
+      console.log(err);
+      res.send({
+        message: "There is no news",
+        type: 'warning'
+      })
+    }
   }
 }

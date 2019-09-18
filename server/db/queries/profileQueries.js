@@ -3,11 +3,15 @@ const User = require('../models').User;
 
 module.exports = {
   create(req, callback) {
+    let address2 = '';
+    if(req.body.address2 !== null)
+      address2 = req.body.address2;
+
     return Profile.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       address1: req.body.address1,
-      address2: req.body.address2,
+      address2: address2,
       city: req.body.city,
       state: req.body.state,
       zip: req.body.zip,
@@ -19,6 +23,18 @@ module.exports = {
       console.log(err);
       callback(err)
     })
+  },
+
+  async get(req, callback){
+    let result = {};
+    let err;
+    try {
+      const profile = await Profile.findOne({ where: {id: req.user.id }});
+      result['profile'] =  profile;
+      return result;
+    }catch(err) {
+      return err;
+    }
   },
 
   getProfiles(callback) {

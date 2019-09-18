@@ -10,5 +10,17 @@ module.exports = {
       console.log(err.msg)
       callback(err);
     });
+  },
+
+  async show()  {
+    let result = {};
+    try{
+      const news = await News.findAll({ limit: 10 });
+      result['news'] = news
+      return result;
+    }catch(err) {
+      console.log(err);
+      return err;
+    }
   }
 }

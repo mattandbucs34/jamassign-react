@@ -12,7 +12,6 @@ class SignInForm extends Component {
   }
   
   renderMessage() {
-    console.log(this.props.user.message)
     if(this.props.user === undefined) {
       return null
     }else if(this.props.user.user === false){
@@ -20,14 +19,8 @@ class SignInForm extends Component {
       let type = 'danger';
       return <Message message={message} type={type} />
     }else if(this.props.user.user === true) {
-      return <Redirect to={{
-        pathname: '/',
-        state: {
-          referrer: '/sign_in',
-          message: 'You have successfully logged in',
-          type: 'success'
-        }
-      }} />
+      console.log(this.props.user);
+      return <Redirect to='/dashboard'/>
     }
     return
   }

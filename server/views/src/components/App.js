@@ -9,6 +9,7 @@ import AddNewsPage from './news/AddNewsPage';
 import Dashboard from './Dashboard';
 import Landing from './Landing';
 import Header from './Header';
+import Profile from './profiles/Profile';
 import ProfileList from './profiles/ProfileList';
 import RegisterPage from './register_forms/RegisterPage';
 import SignInPage from './sign_in/SignInPage';
@@ -16,6 +17,13 @@ import SignInPage from './sign_in/SignInPage';
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
+    this.props.fetchNews();
+  }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.auth.id !== prevProps.auth.id) {
+      this.props.fetchUser();
+    }
   }
 
   render() {
@@ -28,9 +36,14 @@ class App extends Component {
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/list-of-officials' component={ProfileList} />
         <Route path='/add-news' component={AddNewsPage} />
+        <Route path='/account' component={Profile} />
       </Container>
     )
   }
 }
 
-export default connect(null, actions)(App);
+function mapState(state) {
+  return state
+}
+
+export default connect(mapState, actions)(App);

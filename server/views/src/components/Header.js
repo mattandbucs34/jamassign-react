@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchUser } from '../actions';
 
 import CoordinatorNav from './navigation_bars/CoordinatorNav';
 import DefaultNav from './navigation_bars/DefaultNav';
@@ -11,7 +10,7 @@ import NavbarInitial from './navigation_bars/InitialNav';
 class Header extends Component {
  
   renderLogin() {
-    switch (this.props.role) {
+    switch (this.props.user.role) {
       case undefined:
       case null:
         return <NavbarInitial />
@@ -39,12 +38,10 @@ class Header extends Component {
   }
 }
 
-function mapStateToProps({ auth, user }) {
-  // console.log({ auth })
-  return { 
-    role: auth.role, 
+function mapStateToProps({ user }) {
+  return {
     user 
   }
 }
 
-export default connect(mapStateToProps, { fetchUser })(Header);
+export default connect(mapStateToProps)(Header);

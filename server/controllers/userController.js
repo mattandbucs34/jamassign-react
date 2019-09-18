@@ -87,5 +87,20 @@ module.exports = {
   logout(req, res){
     req.logout();
     res.redirect('/');
+  },
+
+  showDashboard(req, res) {
+    const authorized = new Authorizer(req.user).show()
+
+    if(!authorized) {
+      console.log('You are not authorized');
+      res.send({
+        auth: false,
+        message: 'You are not authorized. You must log in!',
+        type: 'danger'
+      });
+    }else {
+      res.send({auth: true});
+    }
   }
 }
