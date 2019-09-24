@@ -12,16 +12,10 @@ module.exports = {
     });
   },
 
-  async show(req, res){
+  async get(req, res) {
     const authorized = new Authorizer(req.user).show();
 
-    if(!authorized) {
-      res.send({
-        auth: false,
-        message: 'You are not authorized to view that. Please log in',
-        type: 'warning'
-      })
-    }else {
+    if(authorized){
       let err;
       try{
         let result;
@@ -32,12 +26,46 @@ module.exports = {
         })
       }catch(err) {
         console.log(err);
-        res.send("No profile found")
+        res.send("No profile found line 29")
       }
+    }else {
+      res.send("No Profile Found line 32")
     }
   },
 
-  showProfiles(req, res) {
+  async show(req, res){
+    const authorized = new Authorizer(req.user).show();
+
+    if(!authorized) {
+      res.send({
+        auth: false,
+        message: 'You are not a goat to view that. Please log in',
+        type: 'warning'
+      })
+    }else {
+      res.send({
+        auth: true
+      })
+    }
+  },
+
+  showList(req, res) {
+    const authorized = new Authorizer(req.user).show();
+
+    if(!authorized) {
+      res.send({
+        auth: false,
+        message: 'You are not authorized to view that. Please log in',
+        type: 'warning'
+      })
+    }else{
+      res.send({
+        auth: true
+      })
+    }
+  },
+
+  getList(req, res) {
     const authorized = new Authorizer(req.user).show();
 
     if(authorized) {
@@ -45,16 +73,37 @@ module.exports = {
         if(err || result == null) {
           console.log("List Error!");
         }else {
-          req.flash("success", "Look at all these names!");
-          res.send(result);
+          console.log("Success")
+          res.send({...result});
         }
+      })
+    }
+  },
+
+  showEdit(req, res) {
+    const authorized = new Authorizer(req.user).show();
+
+    if(!authorized){
+      res.send({
+        auth: false,
+        message: 'You are not authorized to do that. Please log in.',
+        type: 'danger'
       })
     }else {
       res.send({
-        message: 'You must be logged in to view this',
-        type: 'warning',
-        auth: false
-      });
+        auth: true
+      })
     }
+  },
+
+  async editProfile(req, res) {
+    profileQueries.updateProfile(req, req.body, (err, profile) => {
+      if(err || profile == null) {
+        res.redirect(401, `/profiles/${req.user.id}/edit`)
+      }else {
+        res.redirect(`/profiles/${req.user.id}/profile`)
+        res.send(profile)
+      }
+    })
   }
 }

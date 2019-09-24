@@ -2,14 +2,17 @@ import axios from 'axios';
 import {
   ADD_NEWS,
   ADD_USER,
+  EDIT_PROFILE,
   FETCH_USER,
   FETCH_NEWS,
-  GET_PROFILE_LIST,
   SIGN_IN_USER,
   RESET_VIEWS,
   VIEW_ACCOUNT,
   VIEW_ADD_NEWS,
-  VIEW_DASHBOARD
+  VIEW_DASHBOARD,
+  VIEW_EDIT_PROFILE,
+  VIEW_LIST,
+  FETCH_PROFILE
 } from './types';
 
 //Creation Actions
@@ -24,6 +27,12 @@ export const createNews = (formValues) => async dispatch => {
   dispatch({ type: ADD_NEWS, payload: res.data });
 }
 
+export const editProfile = (profile, id) => async dispatch => {
+  const res = await axios.post(`/profiles/${id}/edit`, profile);
+  console.log(res.data)
+  dispatch({ type: EDIT_PROFILE, payload: res.data })
+}
+
 //Fetch Actions
 
 export const fetchUser = () => async dispatch => {
@@ -31,15 +40,16 @@ export const fetchUser = () => async dispatch => {
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
+export const fetchUserProfile = () => async dispatch => {
+  const res = await axios.get('/profiles/get');
+  dispatch({ type: FETCH_PROFILE, payload: res.data });
+}
+
+
 export const signInUser = (formValues) => async dispatch => {
   const res = await axios.post('/users/sign_in', formValues.values);
   dispatch({ type: SIGN_IN_USER, payload: res.data });
 };
-
-export const fetchProfiles = () => async dispatch => {
-  const res = await axios.get('/profiles/list-of-officials');
-  dispatch({ type: GET_PROFILE_LIST, payload: res.data });
-}
 
 export const fetchNews = () => async dispatch => {
   const news = await axios.get('/news/show-news');
@@ -47,10 +57,19 @@ export const fetchNews = () => async dispatch => {
 }
 
 //Views Actions
-export const viewAccount = () => async dispatch => {
-  const account = await axios.get('/profiles/account');
-  console.log(account.data);
+export const viewAccount = (id) => async dispatch => {
+  const account = await axios.get(`/profiles/${id}/profile`);
   dispatch({ type: VIEW_ACCOUNT, payload: account.data })
+}
+
+export const viewEditProfile = () => async dispatch => {
+  const res = await axios.get('/profiles/edit');
+  dispatch({ type: VIEW_EDIT_PROFILE, payload: res.data })
+}
+
+export const viewList = () => async dispatch => {
+  const res = await axios.get('/profiles/show-list');
+  dispatch({ type: VIEW_LIST, payload: res.data });
 }
 
 export const viewAddNews = () => async dispatch => {

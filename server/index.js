@@ -35,6 +35,10 @@ app.use((req, res, next) => {
 });
 // app.use(express.static('public'));
 
+app.use(express.static("public"));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+
 if(process.env.NODE_ENV === 'production') {
   app.use(express.static('views/build'));
   app.get('*', (req, res) => {

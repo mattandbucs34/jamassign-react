@@ -20,9 +20,11 @@ class App extends Component {
     this.props.fetchNews();
   }
 
-  componentDidUpdate(prevProps) {
-    if(this.props.auth.id !== prevProps.auth.id) {
-      this.props.fetchUser();
+  async componentDidUpdate(prevProps) {
+    if(this.props.user.id !== prevProps.user.id) {
+      await this.props.fetchUser();
+      console.log("App Update");
+      await this.props.fetchUserProfile();
     }
   }
 
@@ -34,9 +36,9 @@ class App extends Component {
         <Route path="/register" component={RegisterPage} />
         <Route path="/sign_in" component={SignInPage} />
         <Route path='/dashboard' component={Dashboard} />
-        <Route path='/list-of-officials' component={ProfileList} />
+        <Route path='/show-list' component={ProfileList} />
         <Route path='/add-news' component={AddNewsPage} />
-        <Route path='/account' component={Profile} />
+        <Route path='/:id/profile' component={Profile} />
       </Container>
     )
   }

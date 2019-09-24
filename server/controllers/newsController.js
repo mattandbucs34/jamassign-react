@@ -12,7 +12,6 @@ module.exports = {
         type: 'danger'
       });
     }else {
-      console.log(`${req.flash}`)
       res.send({auth: true});
     }
   },

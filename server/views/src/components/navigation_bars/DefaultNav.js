@@ -6,7 +6,7 @@ class DefaultNav extends Component {
     return (
       <div className='navbar-nav ml-auto'>
         <div className='nav-item ml-auto' data-toggle='collapse' data-target='.navbar-collapse.show'>
-          <Link to='/list-of-officials' className='nav-link'>List</Link>
+          <Link to='/show-list' className='nav-link'>List</Link>
         </div>
         <div className='nav-item ml-auto' data-toggle='collapse' data-target='.navbar-collapse.show'>
           <a href='/users/logout' className='nav-link'>

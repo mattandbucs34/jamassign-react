@@ -10,7 +10,8 @@ import NavbarInitial from './navigation_bars/InitialNav';
 class Header extends Component {
  
   renderLogin() {
-    switch (this.props.user.role) {
+    console.log(this.props.auth.role)
+    switch (this.props.auth.role) {
       case undefined:
       case null:
         return <NavbarInitial />
@@ -38,10 +39,8 @@ class Header extends Component {
   }
 }
 
-function mapStateToProps({ user }) {
-  return {
-    user 
-  }
+function mapStateToProps({ auth }) {
+  return { auth }
 }
 
 export default connect(mapStateToProps)(Header);

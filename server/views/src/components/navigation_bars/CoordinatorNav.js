@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class CoordinatorNav extends Component {
   render() {
+    // console.log(this.props.user.id)
     return(
       <div className='navbar-nav ml-auto'>
         <div className='nav-item ml-auto' data-toggle='collapse' data-target='.navbar-collapse.show'>
@@ -12,10 +14,10 @@ class CoordinatorNav extends Component {
           <Link to='/add-news' className='nav-link'>Add News</Link>
         </div>
         <div className='nav-item ml-auto' data-toggle='collapse' data-target='.navbar-collapse.show'>
-          <Link to='/list-of-officials' className='nav-link'>List</Link>
+          <Link to='/show-list' className='nav-link'>List</Link>
         </div>
         <div className='nav-item ml-auto' data-toggle='collapse' data-target='.navbar-collapse.show'>
-          <Link to='/account' className='nav-link'>Account</Link>
+          <Link to= {`/${this.props.auth.id}/profile`} className='nav-link'>Account</Link>
         </div>
         <div className='nav-item ml-auto' data-toggle='collapse' data-target='.navbar-collapse.show'>
           <a href='/users/logout' className='nav-link'>
@@ -27,4 +29,9 @@ class CoordinatorNav extends Component {
   }
 }
 
-export default CoordinatorNav;
+const mapStateToProps = ({ auth, profile, user }) => {
+  // console.log(({ user }))
+  return { auth, profile, user }
+}
+
+export default connect(mapStateToProps)(CoordinatorNav);

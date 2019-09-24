@@ -17,8 +17,7 @@ class AddNewsPage extends Component {
 
 	async componentDidMount() {
 		try {
-      const views = await this.props.viewAddNews();
-      console.log(views)
+      await this.props.viewAddNews();
       this.setState({ isLoading: false })
     }catch(err) {
       this.setState({
@@ -51,7 +50,6 @@ class AddNewsPage extends Component {
 }
 
 function mapStateToProps({ form, views }) {
-	console.log({ views })
   return {
 		formValues: form.addNewsForm,
 		views

@@ -7,15 +7,17 @@ class Messages extends Component {
     this.state = {
       show: false
     }
+    this.timer =  null;
   }
   
   componentDidUpdate(prevProps) {
     if(!this.state.show) {
       this.setState({ show: true})
-      
-      setTimeout(function(){
+
+      this.timer = setTimeout(function(){
         document.querySelector('.alert').remove();
       }, 4500);
+      
 
       var options = {
         iterations: 1,
@@ -36,7 +38,10 @@ class Messages extends Component {
 
       document.querySelector('.alert').animate(keyframes, options);
     }
+  }
 
+  componentWillUnmount() {
+    clearTimeout(this.timer);
   }
 
   renderMessage() {
