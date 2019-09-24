@@ -7,9 +7,6 @@ import * as actions from '../../actions';
 import Message from '../Messages';
 
 class SignInForm extends Component {
-  componentDidMount() {
-    this.props.fetchUser();
-  }
   
   renderMessage() {
     if(this.props.user === undefined) {

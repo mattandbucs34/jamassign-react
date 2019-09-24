@@ -77,15 +77,25 @@ class ProfileList extends Component {
     })
   }
 
+  renderDelete() {
+    if(this.props.auth.role === 'coordinator'){
+      return(
+        <button type='button' className='btn delete-btn'><i className='far fa-trash-alt'></i></button>
+      )
+    }
+    return
+  }
+
   renderNames() {
     return this.state.profiles.map(profiles => {
       return (
         <div key={profiles.id} className='row name-row'>
-          <div className='name-cell col-md-8 col-7'>
+          <div className='name-cell col-md-8 col-6'>
             <Link to="#" onClick={() => this.handleShow(profiles.id)}>{profiles.lastName}, {profiles.firstName}</Link>
           </div>
-          <div className='phone-cell col-md-4 col-5'>
-            <a className='right' href={`${profiles.mobile}`}>{profiles.mobile}</a>
+          <div className='phone-cell col-md-4 col-6'>
+            <a href={`${profiles.mobile}`}>{profiles.mobile}</a>
+            {this.renderDelete()}
           </div>
         </div>
       )
@@ -120,9 +130,9 @@ class ProfileList extends Component {
   }
 }
 
-function mapStateToProps( { views } ) {
+function mapStateToProps( { auth, views } ) {
   // console.log({ views })
-  return { views }
+  return { auth, views }
 }
 
 export default connect(mapStateToProps, { viewList })(withRouter(ProfileList));
