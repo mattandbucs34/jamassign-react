@@ -25,10 +25,30 @@ module.exports = {
         req.flash('error', 'This user already exists. Please sign in.')
         res.send(err);
       }else{
-        passport.authenticate('local')(req, res, () => {
-          console.log('Success!!!');
-          res.redirect('/');
-        });
+        passport.authenticate('local',
+        (err, user) => {
+          if (err) { return next(err)}
+          if(!user) {
+            res.send({
+              id: null,
+              email: null,
+              role: null,
+              user: false,
+              message: 'Invalid Email or Password',
+              type: 'danger'
+            })
+          }else {
+            req.logIn(user, (err) => {
+              if(err) { return next(err) }
+            })
+            res.send({
+              id: req.user.id,
+              email: req.user.userEmail,
+              role: req.user.role,
+              user: true
+            })
+          }
+        })(req, res, next);
       }
     });
   },

@@ -6,6 +6,10 @@ module.exports = class CoordinatorPolicy extends AppPolicy {
     return this._isCoordinator();
   }
 
+  show() {
+    return this.new();
+  }
+
   create() {
     return this.new();
   }

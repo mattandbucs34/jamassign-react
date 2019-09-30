@@ -8,13 +8,12 @@ class showNews extends Component {
     }else {
       return this.props.news.map(news => {
         return (
-          <div key={news.id}>
-            <div>
-              <h5>{news.subject}</h5>
-              <h5>{new Date(news.createdAt).toLocaleDateString()}</h5>
+          <div key={news.id} className='news-section'>
+            <div className='news-header'>
+              <h6>{news.subject}</h6>
+              <h6 className='news-date'>{new Date(news.createdAt).toLocaleDateString()}</h6>
             </div>
-            <hr />
-            <div>{news.message}</div>
+            <div className='news-body'>{news.message}</div>
           </div>
         )
       })
@@ -24,9 +23,11 @@ class showNews extends Component {
   render() {
     return(
       <div>
-        <h2>Recent News</h2>
+        <h4>Recent News</h4>
         <hr/>
-        {this.renderNews()}
+        <div className='news-scroll'>
+          {this.renderNews()}
+        </div>
       </div>
     )
   }

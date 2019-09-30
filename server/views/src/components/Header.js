@@ -9,8 +9,7 @@ import NavbarInitial from './navigation_bars/InitialNav';
 
 class Header extends Component {
  
-  renderLogin() {
-    console.log(this.props.auth.role)
+  renderNav() {
     switch (this.props.auth.role) {
       case undefined:
       case null:
@@ -25,14 +24,14 @@ class Header extends Component {
   render() {
     return (
       <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
-        <Link to={(this.props.role === 'coordinator') ? '/dashboard' : '/'} className='navbar-brand'>
+        <Link to={(this.props.auth.user) ? '/dashboard' : '/'} className='navbar-brand'>
           JAM Officials
         </Link>
         <button className='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation'>
           <span className='navbar-toggler-icon'></span>
         </button>
         <div className='collapse navbar-collapse' id='navbarNavAltMarkup'>
-          {this.renderLogin()}
+          {this.renderNav()}
         </div>
       </nav>
     )

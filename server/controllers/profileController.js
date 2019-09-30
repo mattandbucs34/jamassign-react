@@ -105,5 +105,27 @@ module.exports = {
         res.send(profile)
       }
     })
+  },
+
+  async destroy(req, res) {
+    let err;
+    let profile;
+    await profileQueries.deleteUser(req, (err, profile));
+
+    if(err) {
+      console.log("There is an error");
+      res.send({
+        message: 'There was an error. Contact your administrator',
+        type: 'danger',
+        deleted: false
+      })
+    }else {
+      console.log("Successfully Deleted");
+      res.send({
+        message: 'That user was successfully deleted',
+        type: 'success',
+        deleted: true
+      })
+    }
   }
 }

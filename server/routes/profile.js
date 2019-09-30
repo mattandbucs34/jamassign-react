@@ -9,5 +9,6 @@ router.get('/profiles/fetch-list', profileController.getList);
 router.get('/profiles/:id/edit', profileController.showEdit);
 
 router.post('/profiles/:id/edit', profileController.editProfile);
+router.post('/profiles/:id/destroy', profileController.destroy);
 
 module.exports = router;

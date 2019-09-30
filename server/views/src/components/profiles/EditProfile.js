@@ -20,12 +20,14 @@ class EditProfile extends Component {
 
   async componentDidMount() {
     try{
+      await this.props.fetchUser();
       await this.props.viewAccount(this.props.auth.id);
       this.setState({
         isLoading: false,
         profile: this.props.profile.profile.profile
       })
     }catch(err) {
+      console.log(err)
       this.setState({ isLoading: false })
     }
   }
@@ -57,7 +59,7 @@ class EditProfile extends Component {
     }else {
       return (
         <div>
-          <h2>User Account</h2>
+          <h2 className='page-heading'>User Account</h2>
           <hr />
           <div className='row'>
             <form className='col-md-8 col-10 jam-form profile-form' onSubmit={()=> this.props.editProfile(this.state.profile, this.props.auth.id)} >

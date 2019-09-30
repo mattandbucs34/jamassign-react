@@ -3,7 +3,7 @@ const faker = require('faker');
 
 let profiles = [];
 
-for(let i = 0; i <= 25; i++) {
+for(let i = 1; i <= 26; i++) {
   profiles.push({
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
@@ -20,9 +20,9 @@ for(let i = 0; i <= 25; i++) {
 }
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.removeConstraint("Profiles", "Profiles_userId_fkey", {}).then(() => {
+    // return queryInterface.removeConstraint("Profiles", "Profiles_userId_fkey", {}).then(() => {
       return queryInterface.bulkInsert('Profiles', profiles, {});
-    });
+    // });
   },
 
   down: (queryInterface, Sequelize) => {

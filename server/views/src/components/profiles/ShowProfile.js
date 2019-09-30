@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchUserProfile, viewAccount } from '../../actions';
 import formFields from './formFields';
@@ -55,7 +55,7 @@ class ShowProfile extends Component {
     }else {
       return (
         <div>
-          <h2>User Account</h2>
+          <h2 className='page-heading'>User Account</h2>
           <hr />
           <div className='row'>
             <form className='col-md-8 col-10 jam-form profile-form'>

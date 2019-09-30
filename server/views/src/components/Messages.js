@@ -14,11 +14,6 @@ class Messages extends Component {
     if(!this.state.show) {
       this.setState({ show: true})
 
-      this.timer = setTimeout(function(){
-        document.querySelector('.alert').remove();
-      }, 4500);
-      
-
       var options = {
         iterations: 1,
         iterationStart: 0,
@@ -35,8 +30,15 @@ class Messages extends Component {
         transformOrigin: '50% 50%', filter: 'blur(0)', opacity: 1 },
         { transform: 'translateY(-10px) scaleY(.1) scaleX(1)', transformOrigin: '50% 0%', filter: 'blur(0px)', opacity: 0 },
       ]
-
-      document.querySelector('.alert').animate(keyframes, options);
+      
+      let alert = document.querySelector('.alert');
+        
+      if(alert !== null){
+        this.timer = setTimeout(function(){
+          alert.remove();
+        }, 4500);
+        alert.animate(keyframes, options);
+      }
     }
   }
 

@@ -5,6 +5,8 @@ import { Link, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { viewList } from '../../actions';
 
+import Messages from '../Messages';
+
 class ProfileList extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +16,9 @@ class ProfileList extends Component {
       isLoading: true,
       profiles: [],
       show: false,
-      users: []
+      users: [],
+      message: '',
+      type: ''
     }
   }
 
@@ -77,13 +81,26 @@ class ProfileList extends Component {
     })
   }
 
-  renderDelete() {
+  renderDelete(id) {
     if(this.props.auth.role === 'coordinator'){
       return(
-        <button type='button' className='btn delete-btn'><i className='far fa-trash-alt'></i></button>
+        <button type='button' className='btn delete-btn' onClick={() => this.deleteUser(id)}><i className='far fa-trash-alt'></i></button>
       )
     }
     return
+  }
+
+  async deleteUser(id) {
+    const res = await axios.post(`/profiles/${id}/destroy`);
+
+    const prof = await axios.get('/profiles/fetch-list');
+    
+    this.setState({
+      profiles: prof.data.profileList,
+      users: prof.data.user,
+      message: res.data.message,
+      type: res.data.type
+    })
   }
 
   renderNames() {
@@ -94,8 +111,8 @@ class ProfileList extends Component {
             <Link to="#" onClick={() => this.handleShow(profiles.id)}>{profiles.lastName}, {profiles.firstName}</Link>
           </div>
           <div className='phone-cell col-md-4 col-6'>
-            <a href={`${profiles.mobile}`}>{profiles.mobile}</a>
-            {this.renderDelete()}
+            <a href={`tel:${profiles.mobile}`}>{profiles.mobile}</a>
+            {this.renderDelete(profiles.id)}
           </div>
         </div>
       )
@@ -110,8 +127,9 @@ class ProfileList extends Component {
     }else {
       return (
         <div>
-          <h2>List of Officials</h2>
+          <h2 className='page-heading'>List of Officials</h2>
           <hr />
+          <Messages message={this.state.message} type={this.state.type} />
           <div className='list-group'>
             {this.renderNames()}
           </div>

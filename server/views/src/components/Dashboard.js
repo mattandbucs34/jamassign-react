@@ -33,11 +33,16 @@ class Dashboard extends Component {
 			return <Redirect to='/' />
 		}else {
       return (
-        <div style={{ textAlign: 'center'}}>
-          <h1>
+        <div>
+          <h1 className='page-heading'>
             User Dashboard
           </h1>
-          <News />
+          <div className='row'>
+            <div className='col-md-3 news'>
+              <News />
+            </div>
+          </div>
+          
         </div>
       )
     }

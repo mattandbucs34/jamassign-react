@@ -5,7 +5,8 @@ import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
-import AddNewsPage from './news/AddNewsPage';
+import NewsPage from './news/NewsDashboard';
+import EditNews from './news/EditNews';
 import Dashboard from './Dashboard';
 import Landing from './Landing';
 import Header from './Header';
@@ -21,9 +22,9 @@ class App extends Component {
   }
 
   async componentDidUpdate(prevProps) {
+    console.log(this.props);
     if(this.props.user.id !== prevProps.user.id) {
       await this.props.fetchUser();
-      console.log("App Update");
       await this.props.fetchUserProfile();
     }
   }
@@ -32,12 +33,13 @@ class App extends Component {
     return (
       <Container>
         <Header />
-        <Route exact path="/" component={Landing} />
-        <Route path="/register" component={RegisterPage} />
-        <Route path="/sign_in" component={SignInPage} />
+        <Route exact path='/' component={Landing} />
+        <Route path='/register' component={RegisterPage} />
+        <Route path='/sign_in' component={SignInPage} />
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/show-list' component={ProfileList} />
-        <Route path='/add-news' component={AddNewsPage} />
+        <Route exact path='/articles' component={NewsPage} />
+        <Route path='/:id/articles/:articleId/edit/' component={EditNews} />
         <Route path='/:id/profile' component={Profile} />
       </Container>
     )

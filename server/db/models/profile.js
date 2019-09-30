@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     address2: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      defaultValue: ''
     },
     city: {
       type: DataTypes.STRING,

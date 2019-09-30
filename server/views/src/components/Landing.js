@@ -41,7 +41,7 @@ class Landing extends Component {
   render() {
     return (
       <div style={{ textAlign: 'center'}}>
-        <h1>
+        <h1 className='page-heading'>
           Landing Page
         </h1>
         {this.renderMessage()}

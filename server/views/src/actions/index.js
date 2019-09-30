@@ -2,23 +2,27 @@ import axios from 'axios';
 import {
   ADD_NEWS,
   ADD_USER,
+  EDIT_ARTICLE,
   EDIT_PROFILE,
-  FETCH_USER,
+  FETCH_ALL_USER_NEWS,
+  FETCH_PROFILE,
   FETCH_NEWS,
+  FETCH_USER,
   SIGN_IN_USER,
   RESET_VIEWS,
+  TRASH_ARTICLE,
   VIEW_ACCOUNT,
   VIEW_ADD_NEWS,
   VIEW_DASHBOARD,
+  VIEW_EDIT_NEWS,
   VIEW_EDIT_PROFILE,
   VIEW_LIST,
-  FETCH_PROFILE
+  VIEW_NEWS_DASHBOARD,
 } from './types';
 
-//Creation Actions
-export const registerUser = (formValues, history) => async dispatch => {
+//POST Actions
+export const registerUser = (formValues) => async dispatch => {
   const res = await axios.post('/users/register', formValues.values);
-  history.push('/dashboard');
   dispatch({ type: ADD_USER, payload: res.config.data });
 };
 
@@ -29,8 +33,17 @@ export const createNews = (formValues) => async dispatch => {
 
 export const editProfile = (profile, id) => async dispatch => {
   const res = await axios.post(`/profiles/${id}/edit`, profile);
-  console.log(res.data)
-  dispatch({ type: EDIT_PROFILE, payload: res.data })
+  dispatch({ type: EDIT_PROFILE, payload: res.data });
+}
+
+export const editArticle = (article, articleId, id) => async dispatch => {
+  const res = await axios.post(`/news/${id}/articles/${articleId}/edit`, article);
+  dispatch({ type: EDIT_ARTICLE, payload: res.data });
+}
+
+export const trashArticle = (articleId, id) => async dispatch => {
+  const res = await axios.post(`/news/${id}/articles/${articleId}/trash`);
+  dispatch({ type: TRASH_ARTICLE, payload: res.data });
 }
 
 //Fetch Actions
@@ -52,14 +65,20 @@ export const signInUser = (formValues) => async dispatch => {
 };
 
 export const fetchNews = () => async dispatch => {
-  const news = await axios.get('/news/show-news');
-  dispatch({ type: FETCH_NEWS, payload: news.data })
+  const res = await axios.get('/news/show-news');
+  dispatch({ type: FETCH_NEWS, payload: res.data })
+}
+
+export const fetchTrashNews = (id) => async dispatch => {
+  const res = await axios.get(`/news/${id}/articles/trash`);
+  console.log(res.data)
+  dispatch({ type: FETCH_ALL_USER_NEWS, payload: res.data })
 }
 
 //Views Actions
 export const viewAccount = (id) => async dispatch => {
-  const account = await axios.get(`/profiles/${id}/profile`);
-  dispatch({ type: VIEW_ACCOUNT, payload: account.data })
+  const res = await axios.get(`/profiles/${id}/profile`);
+  dispatch({ type: VIEW_ACCOUNT, payload: res.data })
 }
 
 export const viewEditProfile = () => async dispatch => {
@@ -72,14 +91,24 @@ export const viewList = () => async dispatch => {
   dispatch({ type: VIEW_LIST, payload: res.data });
 }
 
+export const viewNewsDashboard = () => async dispatch => {
+  const res = await axios.get('/news/articles');
+  dispatch({ type: VIEW_NEWS_DASHBOARD, payload: res.data})
+}
+
 export const viewAddNews = () => async dispatch => {
-  const view = await axios.get('/news/add-news');
-  dispatch({ type: VIEW_ADD_NEWS, payload: view.data });
+  const res = await axios.get('/news/add-news');
+  dispatch({ type: VIEW_ADD_NEWS, payload: res.data });
 }
 
 export const viewDashboard = () => async dispatch => {
-  const view = await axios.get('/users/dashboard');
-  dispatch({ type: VIEW_DASHBOARD, payload: view.data })
+  const res = await axios.get('/users/dashboard');
+  dispatch({ type: VIEW_DASHBOARD, payload: res.data })
+}
+
+export const viewEditNews = (id, articleId) => async dispatch => {
+  const res = await axios.get(`/news/${id}/articles/${articleId}/edit`);
+  dispatch({ type: VIEW_EDIT_NEWS, payload: res.data})
 }
 
 export const resetViews = () => async dispatch => {

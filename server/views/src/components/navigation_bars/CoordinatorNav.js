@@ -11,7 +11,7 @@ class CoordinatorNav extends Component {
           <Link to='/dashboard' className='nav-link'>Home</Link>
         </div>
         <div className='nav-item ml-auto' data-toggle='collapse' data-target='.navbar-collapse.show'>
-          <Link to='/add-news' className='nav-link'>Add News</Link>
+          <Link to='/articles' className='nav-link'>News Actions</Link>
         </div>
         <div className='nav-item ml-auto' data-toggle='collapse' data-target='.navbar-collapse.show'>
           <Link to='/show-list' className='nav-link'>List</Link>

@@ -10,10 +10,10 @@ class DefaultNav extends Component {
           <Link to='/dashboard' className='nav-link'>Home</Link>
         </div>
         <div className='nav-item ml-auto' data-toggle='collapse' data-target='.navbar-collapse.show'>
-          <Link to= {`/${this.props.auth.id}/profile`} className='nav-link'>Account</Link>
+          <Link to='/show-list' className='nav-link'>List</Link>
         </div>
         <div className='nav-item ml-auto' data-toggle='collapse' data-target='.navbar-collapse.show'>
-          <Link to='/show-list' className='nav-link'>List</Link>
+          <Link to= {`/${this.props.auth.id}/profile`} className='nav-link'>Account</Link>
         </div>
         <div className='nav-item ml-auto' data-toggle='collapse' data-target='.navbar-collapse.show'>
           <a href='/users/logout' className='nav-link'>

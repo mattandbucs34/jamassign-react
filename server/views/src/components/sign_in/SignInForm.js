@@ -16,7 +16,6 @@ class SignInForm extends Component {
       let type = 'danger';
       return <Message message={message} type={type} />
     }else if(this.props.user.user === true) {
-      console.log(this.props.user);
       return <Redirect to='/dashboard'/>
     }
     return
