@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
-import { viewAddNews } from '../../actions';
+import { createNews, viewAddNews } from '../../actions';
 
 
 import AddNewsForm from './AddNewsForm';
@@ -16,6 +16,7 @@ class AddNewsPage extends Component {
   }
 
 	async componentDidMount() {
+		console.log(this.props)
 		try {
       await this.props.viewAddNews();
       this.setState({ isLoading: false })
@@ -25,6 +26,11 @@ class AddNewsPage extends Component {
         isLoading: false
       })
     }
+	}
+
+	createNews(formValues) {
+		this.props.createNews(this.props.auth.id, formValues);
+		this.props.onCreateNews()
 	}
 
 	renderContent() {
@@ -38,7 +44,7 @@ class AddNewsPage extends Component {
 				<div>
 					<h2 className='page-heading'>Add News</h2>
 					<hr />
-					<AddNewsForm onSubmit={() => createNews(formValues)} />
+					<AddNewsForm onSubmit={() => this.createNews(formValues)} />
 				</div>
 			);
 		}
@@ -49,11 +55,12 @@ class AddNewsPage extends Component {
 	}
 }
 
-function mapStateToProps({ form, views }) {
+function mapStateToProps({ auth, form, views }) {
   return {
+		auth,
 		formValues: form.addNewsForm,
 		views
   }
 }
 
-export default connect(mapStateToProps, { viewAddNews })(withRouter(AddNewsPage));
+export default connect(mapStateToProps, { createNews, viewAddNews })(withRouter(AddNewsPage));

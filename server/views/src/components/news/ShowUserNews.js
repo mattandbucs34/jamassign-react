@@ -4,14 +4,19 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import * as actions from '../../actions'
 
+import ActiveNews from './ActiveNews';
+import AddNewsPage from './AddNewsPage';
+import DeletedNews from './DeletedNews';
+
 
 class UserNews extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      articles: [],
-      isLoading: true
+      showActive: true,
+      showDeleted: false,
+      showAddNews: false
     }
   }
   
@@ -20,67 +25,56 @@ class UserNews extends Component {
     try {
       await this.props.fetchUser();
       await this.props.viewNewsDashboard();
-      const newsArticles = await axios.get(`/news/${this.props.auth.id}/articles`)
-
-      this.setState({
-        articles: newsArticles.data.articles,
-        isLoading: false
-      });
     }catch(err) {
       console.log(err);
       this.setState({ isLoading: false });
     }
   }
 
-  async handleClick(id) {
-    await this.props.viewEditNews(this.props.auth.id, id);
-  }
-
-  handleDelete(id) {
-    let filteredArticles = this.state.articles.filter(article => article.id !== id)
-    this.setState({ articles: filteredArticles})
-    console.log(this.state.articles)
-    this.props.trashArticle(id, this.props.auth.id);
-  }
-
-  renderArticles() {
-    return this.state.articles.map(articles => {
-      return (
-        <div key={articles.id} className='news-section' id={articles.id}>
-          <div className={articles.trash ? 'news-header trash' : 'news-header'}>
-            {articles.subject}
-            <div id='coordinator-news-head'>
-              <Link to={`/${this.props.auth.id}/articles/${articles.id}/edit`} 
-                className='btn article-options' 
-                onClick={() => this.handleClick(articles.id)} >
-                  <i className='fas fa-pencil-alt'></i>
-              </Link>
-              <button className='btn article-options' id='coordinator-news-delete' onClick={() => this.handleDelete(articles.id)}><i className='far fa-trash-alt'></i></button>
-            </div>
-          </div>
-          <div className='news-body'>
-            {articles.message}
-          </div>
-        </div>
-      )
-    })
-  }
-
-  async showActiveNews() {
-    try {
-      const activeNews = await axios.get(`/news/${this.props.auth.id}/articles`);
-      this.setState({ articles: activeNews.data.articles });
-    }catch(err) {
-      console.log(err)
+  showActiveNews() {
+    if(!this.state.showActive) {
+      this.setState({
+        showActive: true,
+        showDeleted: false,
+        showAddNews: false
+      })
     }
   }
 
-  async showTrashNews() {
-    try {
-      const trashNews = await axios.get(`/news/${this.props.auth.id}/articles/trash`);
-      this.setState({ articles: trashNews.data.articles });
-    }catch(err) {
-      console.log(err)
+  showTrashNews() {
+    if(!this.state.showDeleted) {
+      this.setState({
+        showActive: false,
+        showDeleted: true,
+        showAddNews: false
+      })
+    }
+  }
+
+  showAddNews() {
+    if(!this.state.showAddNews) {
+      this.setState({
+        showActive: false,
+        showDeleted: false,
+        showAddNews: true
+      })
+    }
+    console.log(this.state);
+  }
+
+  renderComponent() {
+    if(this.state.showActive) {
+      return <ActiveNews />
+    }else if (this.state.showDeleted) {
+      return <DeletedNews />
+    }else if (this.state.showAddNews) {
+      return <AddNewsPage onCreateNews={() => this.setState({
+        showActive: true,
+        showDeleted: false,
+        showAddNews: false
+      })}/>
+    }else{
+      return
     }
   }
 
@@ -95,21 +89,23 @@ class UserNews extends Component {
           <h2 className='page-heading'>News Dashboard</h2>
           <div>
             <div className='jam-form'>
-              <div style={{ display: 'inline-block' }}>
-                <div>
+              <div className='row'>
+                <div className='col-md-2'>
                   <button type='button' className='btn btn-link' 
-                    onClick={() => {this.showActiveNews()}}
-                  >
-                    Show Active
+                    onClick={() => {this.showActiveNews()}}>
+                    Active
                   </button>
                   <button type='button' className='btn btn-link' 
-                    onClick={() => {this.showTrashNews()}}
-                  >
-                    Show Deleted
+                    onClick={() => {this.showTrashNews()}}>
+                    Deleted
+                  </button>
+                  <button type='button' className='btn btn-link' 
+                    onClick={() => {this.showAddNews()}}>
+                    Create
                   </button>
                 </div>
-                <div>
-                  {this.renderArticles()}
+                <div className='col-md-10'>
+                  {this.renderComponent()}
                 </div>
               </div>
             </div>
@@ -124,8 +120,8 @@ class UserNews extends Component {
   }
 }
 
-const mapStateToProps = ({ auth, views, news }) => {
-  return { auth, views, news }
+const mapStateToProps = ({ auth, views }) => {
+  return { auth, views }
 }
 
 export default connect(mapStateToProps, actions)(withRouter(UserNews));

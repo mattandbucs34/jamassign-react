@@ -10,9 +10,9 @@ router.get('/news/:id/articles', newsController.getUserNews);
 router.get('/news/:id/articles/:articleId/edit', newsController.editNews);
 router.get('/news/:id/articles/trash', newsController.getTrashNews);
 
-router.post('/news/add-news', newsController.create);
+router.post('/news/:id/add-news', newsController.create);
 router.post('/news/:id/articles/:articleId/edit', newsController.updateNews);
-router.post('/news/:id/articles/:articleId/delete', newsController.delete);
+router.post('/news/:id/articles/:articleId/destroy', newsController.delete);
 router.post('/news/:id/articles/:articleId/trash', newsController.trash);
 
 module.exports = router;

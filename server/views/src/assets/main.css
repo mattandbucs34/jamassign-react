@@ -55,13 +55,13 @@
 }
 
 textarea.news-msg {
-  height: 55vh;
+  height: 50vh;
 }
 
 .news {
   margin-top: 2rem;
-  height: 80vh;
-  overflow: scroll;
+  padding: 12px;
+  height: 30rem;
 }
 
 .news-section {
@@ -76,6 +76,12 @@ textarea.news-msg {
   padding: 20px 10px;
   background-color: rgb(220,220,220,50%);
   display: flex;
+}
+
+.news-scroll {
+  height: 25rem;
+  padding: 12px;
+  overflow-y: scroll;
 }
 
 .trash {
@@ -106,6 +112,6 @@ textarea.news-msg {
 /* Media Queries */
 @media (max-height: 740px) {
   textarea.news-msg {
-    height: 43vh;
+    height: 38vh;
   }
 }
