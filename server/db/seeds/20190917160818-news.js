@@ -3,11 +3,11 @@ const faker = require('faker');
 
 let news = [];
 
-for(let i = 0; i < 15; i++) {
+for(let i = 0; i < 30; i++) {
   news.push({
     subject: faker.lorem.sentence(),
     message: faker.lorem.paragraph(),
-    userId: faker.random.number({ min: 1, max: 15}),
+    userId: faker.random.number({ min: 25, max: 27}),
     createdAt: new Date(),
     updatedAt: new Date(),
     trash: false
