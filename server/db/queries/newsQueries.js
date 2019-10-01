@@ -15,7 +15,8 @@ module.exports = {
   async show()  {
     let result = {};
     try{
-      const news = await News.findAll({ 
+      const news = await News.findAll({
+        where: { trash: false },
         limit: 10,
         order: [[ 'updatedAt', 'DESC' ]]
       });

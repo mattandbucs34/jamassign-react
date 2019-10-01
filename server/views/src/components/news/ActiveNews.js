@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { trashArticle } from '../../actions'
@@ -16,8 +16,6 @@ class ActiveNews extends Component {
 
   async componentDidMount(){
     try {
-      // await this.props.fetchUser();
-      // await this.props.viewNewsDashboard();
       const newsArticles = await axios.get(`/news/${this.props.auth.id}/articles`)
 
       this.setState({

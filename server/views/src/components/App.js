@@ -18,7 +18,7 @@ import SignInPage from './sign_in/SignInPage';
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
-    this.props.fetchNews();
+    
   }
 
   async componentDidUpdate(prevProps) {
