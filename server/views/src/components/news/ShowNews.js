@@ -1,10 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { fetchNews } from '../../actions';
 
 class showNews extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoading: true
+    }
+  }
+  async componentDidMount() {
+    try {
+      await this.props.fetchNews();
+      this.setState({ isLoading: false });
+    }catch(err) {
+      console.log(err);
+      this.setState({ isLoading: false });
+    }
+  }
+
   renderNews() {
-    if(!this.props.news) {
-      return
+    if(this.state.isLoading) {
+      return "Please Wait..."
     }else {
       return this.props.news.map(news => {
         return (
@@ -33,8 +51,8 @@ class showNews extends Component {
   }
 }
 
-function mapState({ news }){
+function mapStateToProps({ news }){
   return({ news: news.news })
 }
 
-export default connect(mapState)(showNews);
+export default connect(mapStateToProps, { fetchNews })(showNews);

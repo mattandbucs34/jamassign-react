@@ -34,7 +34,7 @@ class AddNewsPage extends Component {
 	}
 
 	renderContent() {
-		const { createNews, formValues } = this.props;
+		const { formValues } = this.props;
 		if(this.state.isLoading) {
 			return "Please wait...";
 		}else if(!this.props.views.auth) {
