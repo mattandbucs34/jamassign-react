@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   ADD_NEWS,
   ADD_USER,
+  DESTROY_ARTICLE,
   EDIT_ARTICLE,
   EDIT_PROFILE,
   FETCH_ALL_USER_NEWS,
@@ -26,8 +27,8 @@ export const registerUser = (formValues) => async dispatch => {
   dispatch({ type: ADD_USER, payload: res.config.data });
 };
 
-export const createNews = (formValues) => async dispatch => {
-  const res = await axios.post('/news/add-news', formValues.values);
+export const createNews = (id, formValues) => async dispatch => {
+  const res = await axios.post(`/news/${id}/add-news`, formValues.values);
   dispatch({ type: ADD_NEWS, payload: res.data });
 }
 
@@ -44,6 +45,11 @@ export const editArticle = (article, articleId, id) => async dispatch => {
 export const trashArticle = (articleId, id) => async dispatch => {
   const res = await axios.post(`/news/${id}/articles/${articleId}/trash`);
   dispatch({ type: TRASH_ARTICLE, payload: res.data });
+}
+
+export const destroyArticle = (articleId, id) => async dispatch => {
+  const res = await axios.post(`/news/${id}/articles/${articleId}/destroy`);
+  dispatch({ type: DESTROY_ARTICLE, payload: res.data });
 }
 
 //Fetch Actions

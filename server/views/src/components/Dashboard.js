@@ -38,7 +38,14 @@ class Dashboard extends Component {
             User Dashboard
           </h1>
           <div className='row'>
-            <div className='col-md-3 news'>
+            <div className='container'>
+              <div className='jumbotron'>
+                Filler
+              </div>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='container news'>
               <News />
             </div>
           </div>

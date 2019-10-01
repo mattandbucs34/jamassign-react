@@ -2,6 +2,7 @@
 export const ADD_NEWS = 'ADD_NEWS';
 export const ADD_USER = 'ADD_USER';
 export const ALERT_USER = 'ALERT_USER';
+export const DESTROY_ARTICLE = 'DESTROY_ARTICLE';
 export const EDIT_ARTICLE = 'EDIT_ARTICLE';
 export const EDIT_PROFILE = 'EDIT_PROFILE';
 export const SIGN_IN_USER = 'SIGN_IN_USER';

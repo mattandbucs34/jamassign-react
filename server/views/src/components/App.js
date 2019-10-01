@@ -22,7 +22,6 @@ class App extends Component {
   }
 
   async componentDidUpdate(prevProps) {
-    console.log(this.props);
     if(this.props.user.id !== prevProps.user.id) {
       await this.props.fetchUser();
       await this.props.fetchUserProfile();
