@@ -10,6 +10,7 @@ for(let i = 0; i < 15; i++) {
     userId: faker.random.number({ min: 1, max: 15}),
     createdAt: new Date(),
     updatedAt: new Date(),
+    trash: false
   })
 }
 
