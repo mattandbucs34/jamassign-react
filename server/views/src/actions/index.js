@@ -22,13 +22,15 @@ import {
 } from './types';
 
 //POST Actions
-export const registerUser = (formValues) => async dispatch => {
+export const registerUser = (formValues, history) => async dispatch => {
   const res = await axios.post('/users/register', formValues.values);
+  history.push('/dashboard');
   dispatch({ type: ADD_USER, payload: res.config.data });
 };
 
-export const createNews = (id, formValues) => async dispatch => {
+export const createNews = (id, formValues, history) => async dispatch => {
   const res = await axios.post(`/news/${id}/add-news`, formValues.values);
+  history.push('/articles')
   dispatch({ type: ADD_NEWS, payload: res.data });
 }
 
@@ -97,8 +99,8 @@ export const viewList = () => async dispatch => {
   dispatch({ type: VIEW_LIST, payload: res.data });
 }
 
-export const viewNewsDashboard = () => async dispatch => {
-  const res = await axios.get('/news/articles');
+export const viewNewsDashboard = (id) => async dispatch => {
+  const res = await axios.get(`/news/${id}/articles/dashboard`);
   dispatch({ type: VIEW_NEWS_DASHBOARD, payload: res.data})
 }
 

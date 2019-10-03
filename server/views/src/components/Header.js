@@ -23,7 +23,7 @@ class Header extends Component {
   
   render() {
     return (
-      <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
+      <nav className='navbar navbar-expand-md navbar-dark bg-dark'>
         <Link to={(this.props.auth.user) ? '/dashboard' : '/'} className='navbar-brand'>
           JAM Officials
         </Link>

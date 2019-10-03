@@ -10,35 +10,38 @@ class Messages extends Component {
     this.timer =  null;
   }
   
-  componentDidUpdate(prevProps) {
-    if(!this.state.show) {
-      this.setState({ show: true})
+  componentDidMount() {
+    console.log("Mounted")
+    this.setState({ show: true })
+    const alert = document.querySelector('.alert');
+    console.log("Alert: " + alert)
+  }
 
-      var options = {
-        iterations: 1,
-        iterationStart: 0,
-        delay: 4000,
-        endDelay: 0,
-        direction: 'alternate',
-        duration: 700,
-        fill: 'forwards',
-        easing: 'ease-out',
-      }
-
-      var keyframes = [
-        { transform: 'translateY(0) scaleY(1) scaleX(1)',
-        transformOrigin: '50% 50%', filter: 'blur(0)', opacity: 1 },
-        { transform: 'translateY(-10px) scaleY(.1) scaleX(1)', transformOrigin: '50% 0%', filter: 'blur(0px)', opacity: 0 },
-      ]
+  setTimeout() {
+    var options = {
+      iterations: 1,
+      iterationStart: 0,
+      delay: 4000,
+      endDelay: 0,
+      direction: 'alternate',
+      duration: 700,
+      fill: 'forwards',
+      easing: 'ease-out',
+    }
+  
+    var keyframes = [
+      { transform: 'translateY(0) scaleY(1) scaleX(1)',
+      transformOrigin: '50% 50%', filter: 'blur(0)', opacity: 1 },
+      { transform: 'translateY(-10px) scaleY(.1) scaleX(1)', transformOrigin: '50% 0%', filter: 'blur(0px)', opacity: 0 },
+    ]
+    
+    let alert = document.querySelector('.alert');
       
-      let alert = document.querySelector('.alert');
-        
-      if(alert !== null){
-        this.timer = setTimeout(function(){
-          alert.remove();
-        }, 4500);
-        alert.animate(keyframes, options);
-      }
+    if(alert !== null){
+      this.timer = setTimeout(function(){
+        alert.remove();
+      }, 4500);
+      alert.animate(keyframes, options);
     }
   }
 
@@ -49,25 +52,30 @@ class Messages extends Component {
   renderMessage() {
     let message = this.props.message
     let type = this.props.type
-
-    if(type && message){
+    
+    if(type && message) {
       return(
         <div className={`alert alert-${type} alert-dismissable fade show`}  role='alert'>
-            <button type='button' className='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
-            {message}
-          </div>
+          <button type='button' className='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+          {message}
+        </div>
       )
     }
+    return null;
   }
 
   render() {
-    return (
-      <div>
-        {this.renderMessage()}
-      </div>
-    )
-    
+    if(this.state.show) {
+      return (
+        <div>
+          {this.renderMessage()}
+          {this.setTimeout()}
+        </div>
+      )
+    }
+    return (<div></div>)
   }
 }
+
 
 export default Messages;

@@ -18,16 +18,69 @@
   border-radius: 5px;
   box-shadow: 0px 10px 20px lightgrey, 0px 6px 6px lightgrey;
   display: inline-block;
+  position: relative;
+}
+
+.add-news{
+  height: 40rem;
+  box-shadow: 0 0;
+  border: 1px solid rgba(211,211,211,50%);
+  background-color: rgba(211,211,211,10%);
+}
+
+.signInFooter {
+  display: block;
+  height: 10rem;
+  margin: 15px -16px -16px -16px;
+  border-top: 1px solid lightgray;
+  background-color: rgb(211,211,211,20%)
+}
+
+.line {
+  overflow: hidden;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.line:before,
+.line:after {
+  background-color: green;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 25%;
+}
+
+.line:before {
+  right: 0.5em;
+  margin-left: -50%;
+}
+
+.line:after {
+  left: 0.5em;
+  margin-right: -50%;
+}
+
+#linkToRegister {
+  display: flex;
+  margin: 2rem 0;
+}
+
+#btnRegisterRedirect {
+  margin: auto;
 }
 
 .profile-form {
-  /* width: 70%; */
   display: block;
   margin: auto
 }
 
 .right {
-  float: right;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
 }
 
 .list-group {
@@ -39,6 +92,11 @@
   margin: 0;
   border: inset;
 }
+
+.name-row:nth-child(even){
+  background-color: rgba(255, 254, 218, 0.6);
+}
+
 .name-cell, .phone-cell {
   padding: 5px;
 }
@@ -55,7 +113,7 @@
 }
 
 textarea.news-msg {
-  height: 50vh;
+  height: 27rem;
 }
 
 .news {
@@ -109,9 +167,47 @@ textarea.news-msg {
   color: red;
 }
 
+#news-sidebar {
+  border-right: 1px solid lightgrey;
+}
+
+#news-post-btn {
+  position: relative;
+  margin-top: 3rem;
+}
+
+#showDeleted {
+  position: absolute;
+  bottom: 0px;
+}
+
 /* Media Queries */
 @media (max-height: 740px) {
   textarea.news-msg {
-    height: 38vh;
+    height: 27rem;
+  }
+}
+
+@media (max-width: 576px) {
+  #newsContainer {
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 767px) {
+  #showDeleted {
+    right: 0px;
+    bottom: auto;
+  }
+
+  #news-sidebar {
+    border-bottom: 1px solid lightgrey;
+    border-right: none;
+  }
+}
+
+@media (min-width: 992px) {
+  #newsContainer {
+    height: 45rem;
   }
 }

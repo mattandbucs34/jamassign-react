@@ -15,36 +15,33 @@ class AddNewsPage extends Component {
     }
   }
 
-	async componentDidMount() {
-		console.log(this.props)
-		try {
-      await this.props.viewAddNews();
-      this.setState({ isLoading: false })
-    }catch(err) {
-      this.setState({
-        err,
-        isLoading: false
-      })
-    }
-	}
+	// async componentDidMount() {
+	// 	console.log(this.props)
+	// 	try {
+  //     await this.props.viewAddNews();
+  //     this.setState({ isLoading: false })
+  //   }catch(err) {
+  //     this.setState({
+  //       err,
+  //       isLoading: false
+  //     })
+  //   }
+	// }
 
-	createNews(formValues) {
-		this.props.createNews(this.props.auth.id, formValues);
+	createNews(formValues, history) {
+		this.props.createNews(this.props.auth.id, formValues, history);
 		this.props.onCreateNews()
 	}
 
 	renderContent() {
-		const { formValues } = this.props;
-		if(this.state.isLoading) {
-			return "Please wait...";
-		}else if(!this.props.views.auth) {
+		const { formValues, history } = this.props;
+		if(!this.props.views.auth) {
 			return <Redirect to='/' />
 		}else {
 			return (
 				<div>
-					<h2 className='page-heading'>Add News</h2>
-					<hr />
-					<AddNewsForm onSubmit={() => this.createNews(formValues)} />
+					<h4 className='page-heading'>Add News</h4>
+					<AddNewsForm onSubmit={() => this.createNews(formValues, history)} />
 				</div>
 			);
 		}

@@ -17,9 +17,11 @@ class RegisterUserPage extends Component {
         <form onSubmit={this.props.handleSubmit} className="jam-form">
           <h3>Create Login Information</h3>
           <hr></hr>
-          {this.renderFields()}
-          <hr></hr>
-          <button type="submit" className="btn btn-primary right">Continue<i className="fas fa-arrow-right" style={{marginLeft: '4px'}}></i></button>
+          <div style={{ position: 'relative', height: '20rem'}}>
+            {this.renderFields()}
+            <hr></hr>
+            <button type="submit" className="btn btn-primary right">Continue<i className="fas fa-arrow-right" style={{marginLeft: '4px'}}></i></button>
+          </div>
         </form>
       </div>
     </div>
