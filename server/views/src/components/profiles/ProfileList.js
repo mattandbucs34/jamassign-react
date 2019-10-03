@@ -149,7 +149,6 @@ class ProfileList extends Component {
 }
 
 function mapStateToProps( { auth, views } ) {
-  // console.log({ views })
   return { auth, views }
 }
 

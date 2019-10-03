@@ -3,7 +3,7 @@ const router = express.Router();
 const newsController = require('../controllers/newsController');
 
 
-router.get('/news/articles', newsController.dashboard);
+router.get('/news/:id/articles/dashboard', newsController.dashboard);
 router.get('/news/add-news', newsController.showPage);
 router.get('/news/show-news', newsController.showNews);
 router.get('/news/:id/articles', newsController.getUserNews);

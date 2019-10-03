@@ -25,11 +25,14 @@ module.exports = {
 
     newsQuery.create(newsPost, (err, news) => {
       if(err) {
-        res.send({ message: 'Error. You cannot create that'});
+        res.send({
+          message: 'Error. You cannot create that',
+          type: 'danger'
+        });
       }else {
         res.send({ 
           message: 'News Story Created Successfully',
-          url: '/dashboard'
+          type: 'success'
         });
       }
     });

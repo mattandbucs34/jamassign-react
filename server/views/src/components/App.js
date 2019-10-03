@@ -30,17 +30,20 @@ class App extends Component {
 
   render() {
     return (
+      <div>
+      <Header />
       <Container>
-        <Header />
+        
         <Route exact path='/' component={Landing} />
         <Route path='/register' component={RegisterPage} />
         <Route path='/sign_in' component={SignInPage} />
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/show-list' component={ProfileList} />
-        <Route exact path='/articles' component={NewsPage} />
+        <Route exact path='/:id/articles/dashboard' component={NewsPage} />
         <Route path='/:id/articles/:articleId/edit/' component={EditNews} />
         <Route path='/:id/profile' component={Profile} />
       </Container>
+      </div>
     )
   }
 }

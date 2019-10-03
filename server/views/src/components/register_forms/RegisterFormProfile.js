@@ -31,7 +31,7 @@ class RegisterForm extends Component {
             <hr></hr>
             {this.renderFields()}
             <div className="row">
-              <div className='form-group col-md-4'>
+              <div className='form-group col-md-4 col-4'>
                 <label htmlFor='state'>State:</label>
                 <Field name='state' component='select' className="form-control">
                   {this.renderFiftyStates()}
