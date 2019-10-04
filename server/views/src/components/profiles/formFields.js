@@ -4,7 +4,7 @@ export default [
   { label: 'Address:', name: 'address1', type: 'text'},
   { label: 'Address 2:', name: 'address2', type: 'text'},
   { label: 'City:', name: 'city', type: 'text'},
-  { label: 'State:', name: 'state', type: 'text'},
-  { label: 'Zip:', name: 'zip', type: 'text'},
-  { label: 'Mobile:', name: 'mobile', type: 'text'}
+  // { label: 'State:', name: 'state', type: 'text'},
+  // { label: 'Zip:', name: 'zip', type: 'text'},
+  // { label: 'Mobile:', name: 'mobile', type: 'text'}
 ];

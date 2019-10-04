@@ -28,8 +28,13 @@ class showNews extends Component {
         return (
           <div key={news.id} className='news-section'>
             <div className='news-header'>
-              <h6>{news.subject}</h6>
-              <h6 className='news-date'>{new Date(news.createdAt).toLocaleDateString()}</h6>
+              <div style={{ display: 'inherit' }}>
+                <h6>{news.subject}</h6>
+                <h6 className='news-date'>{new Date(news.createdAt).toLocaleDateString()}</h6><br />
+              </div>
+              <div>
+                <p>Posted By {news.Profile.firstName} {news.Profile.lastName}</p>
+              </div>
             </div>
             <div className='news-body'>{news.message}</div>
           </div>
@@ -41,7 +46,7 @@ class showNews extends Component {
   render() {
     return(
       <div>
-        <h4>Recent News</h4>
+        <h4>Announcements</h4>
         <hr/>
         <div className='news-scroll'>
           {this.renderNews()}
@@ -52,6 +57,7 @@ class showNews extends Component {
 }
 
 function mapStateToProps({ news }){
+  console.log({ news })
   return({ news: news.news })
 }
 

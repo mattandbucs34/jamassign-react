@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   News.associate = function(models) {
-    News.belongsTo(models.User, {
+    News.belongsTo(models.Profile, {
       foreignKey: 'userId',
       onDelete: 'CASCADE'
     });

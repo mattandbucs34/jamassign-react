@@ -54,15 +54,17 @@ class EditNews extends Component {
                 <textarea className='news-msg form-control' name='message' value={this.props.views.article.message} onChange={this.handleChange} />
               </div>
               <Link to='/articles' className='btn btn-outline-danger'>Go Back</Link>
-              <button 
-                type='submit' 
-                className='btn btn-primary right' 
-                onClick={() => this.props.editArticle(
-                  this.state.article,
-                  this.props.match.params.articleId,
-                  this.props.auth.id
-                )}>Update
-              </button>
+              <div className='button-right'>
+                <button 
+                  type='submit' 
+                  className='btn btn-primary right' 
+                  onClick={() => this.props.editArticle(
+                    this.state.article,
+                    this.props.match.params.articleId,
+                    this.props.auth.id
+                  )}>Update
+                </button>
+              </div>
             </form>
           </div>
         </div>

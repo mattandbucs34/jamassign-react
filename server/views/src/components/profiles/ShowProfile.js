@@ -24,7 +24,6 @@ class ShowProfile extends Component {
   }
 
   async componentDidUpdate(prevProps) {
-    console.log(prevProps)
     if(prevProps.profile.length === 0)
     try {
       await this.props.fetchUserProfile();
@@ -60,7 +59,24 @@ class ShowProfile extends Component {
           <div className='row'>
             <form className='col-md-8 col-10 jam-form profile-form'>
               {this.renderFields()}
-              <button onClick={this.props.profileEdit} className='btn btn-danger right' id='profileBtn' type='button'>Edit</button>
+              <div className="row">
+                <div className='form-group col-md-4 col-4'>
+                  <label htmlFor='state'>State:</label>
+                  <input name='state' className="form-control" onChange={this.handleChange} value={this.state.profile.state} readOnly>
+                  </input>
+                </div>
+                <div className='form-group'>
+                  <label htmlFor='zip'>Zip Code: <small>#####</small></label>
+                  <input className='form-control' name='zip' type='text' value={this.state.profile.zip} onChange={this.handleChange} readOnly/>
+                </div>
+              </div>
+              <div className='form-group'>
+                <label htmlFor='mobile'>Mobile Number: <small>###-###-####</small></label>
+                <input className='form-control' name='mobile' value={this.state.profile.mobile} type='tel' onChange={this.handleChange} readOnly />
+              </div>
+              <div className='button-right'>
+                <button onClick={this.props.profileEdit} className='btn btn-danger right' id='profileBtn' type='button'>Edit</button>
+              </div>
             </form>
           </div>
           

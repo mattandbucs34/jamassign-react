@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 class CoordinatorNav extends Component {
   render() {
@@ -11,7 +13,7 @@ class CoordinatorNav extends Component {
           <Link to='/dashboard' className='nav-link'>Home</Link>
         </div>
         <div className='nav-item ml-auto' data-toggle='collapse' data-target='.navbar-collapse.show'>
-          <Link to={`/${this.props.auth.id}/articles/dashboard`} className='nav-link'>News Actions</Link>
+          <Link to={`/${this.props.auth.id}/articles/dashboard`} className='nav-link'>Articles</Link>
         </div>
         <div className='nav-item ml-auto' data-toggle='collapse' data-target='.navbar-collapse.show'>
           <Link to='/show-list' className='nav-link'>List</Link>
@@ -21,7 +23,8 @@ class CoordinatorNav extends Component {
         </div>
         <div className='nav-item ml-auto' data-toggle='collapse' data-target='.navbar-collapse.show'>
           <a href='/users/logout' className='nav-link'>
-            Log Out <i className="fas fa-sign-out-alt"></i> 
+            Log Out &nbsp;
+            <FontAwesomeIcon icon={faSignOutAlt} />
           </a>
         </div>
       </div>

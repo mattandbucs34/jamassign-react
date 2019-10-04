@@ -47,8 +47,9 @@ class RegisterForm extends Component {
               <label htmlFor='mobile'>Mobile Number: <small>###-###-####</small></label>
               <Field className='form-control' name='mobile' component='input' type='tel' />
             </div>
-            
-            <button type="submit" className="btn btn-primary">Register</button>
+            <div className='button-right'>
+              <button type="submit" className="btn btn-primary button-register">Register</button>
+            </div>
           </form>
         </div>
       </div>
