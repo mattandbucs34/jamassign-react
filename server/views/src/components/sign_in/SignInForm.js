@@ -38,7 +38,9 @@ class SignInForm extends Component {
                 <label htmlFor='password'>Enter Your Password</label>
                 <Field component='input' type='password' name='password' className='form-control'></Field>
               </div>
-                  <button type='submit' className='btn btn-primary right'>Sign In</button>
+              <div className='button-right'>
+                <button type='submit' className='btn btn-primary right'>Sign In</button>
+              </div>
             </div>
 
             <footer className='signInFooter'>

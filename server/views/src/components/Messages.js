@@ -11,10 +11,7 @@ class Messages extends Component {
   }
   
   componentDidMount() {
-    console.log("Mounted")
     this.setState({ show: true })
-    const alert = document.querySelector('.alert');
-    console.log("Alert: " + alert)
   }
 
   setTimeout() {

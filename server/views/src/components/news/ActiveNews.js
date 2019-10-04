@@ -44,9 +44,9 @@ class ActiveNews extends Component {
       return (
         <div key={articles.id} className='news-section' id={articles.id}>
           <div className={articles.trash ? 'news-header trash' : 'news-header'}>
-            {articles.subject}
+            <h6>{articles.subject}</h6>
             <div id='coordinator-news-head'>
-              <Link to={`/${this.props.auth.id}/articles/${articles.id}/edit`} 
+              <Link to={`/${this.props.auth.id}/articles/${articles.id}/edit`}
                 className='btn article-options' 
                 onClick={() => this.handleClick(articles.id)} >
                   <i className='fas fa-pencil-alt'></i>

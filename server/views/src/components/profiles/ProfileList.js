@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { viewList } from '../../actions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 import Messages from '../Messages';
 
@@ -84,7 +86,7 @@ class ProfileList extends Component {
   renderDelete(id) {
     if(this.props.auth.role === 'coordinator'){
       return(
-        <button type='button' className='btn delete-btn' onClick={() => this.deleteUser(id)}><i className='far fa-trash-alt'></i></button>
+        <button type='button' className='btn delete-btn' onClick={() => this.deleteUser(id)}><FontAwesomeIcon icon={faTrashAlt} /></button>
       )
     }
     return

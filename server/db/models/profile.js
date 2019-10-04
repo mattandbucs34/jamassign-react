@@ -42,8 +42,16 @@ module.exports = (sequelize, DataTypes) => {
     Profile.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE'
-    })
+    });
+
+    Profile.hasMany(models.News, {
+      foreignKey: 'userId',
+      as: 'news'
+    });
   };
+
+  
+    
   
   return Profile;
 };

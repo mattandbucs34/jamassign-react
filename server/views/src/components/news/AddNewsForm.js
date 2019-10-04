@@ -14,7 +14,7 @@ class AddNewsForm extends Component {
             <label htmlFor='newsMessage'>Message:</label>
             <Field className='news-msg form-control' component='textarea' name='newsMessage' />
           </div>
-          <div id='news-post-btn'>
+          <div className='button-right'>
           <button type='submit' className='btn btn-primary right'>Post Message</button>
           </div>
         </div>

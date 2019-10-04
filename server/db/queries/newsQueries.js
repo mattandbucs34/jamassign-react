@@ -1,4 +1,5 @@
 const News = require('../models').News;
+const Profile = require('../models').Profile;
 const Authorizer = require('../../policies/application');
 
 module.exports = {
@@ -18,8 +19,13 @@ module.exports = {
       const news = await News.findAll({
         where: { trash: false },
         limit: 10,
-        order: [[ 'updatedAt', 'DESC' ]]
+        order: [[ 'updatedAt', 'DESC' ]],
+        include: [{
+          model: Profile,
+          // as: 'news'
+        }]
       });
+      
       result['news'] = news
       return result;
     }catch(err) {

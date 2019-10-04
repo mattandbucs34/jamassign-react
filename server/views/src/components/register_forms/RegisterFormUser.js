@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import RegisterField from './RegisterField';
 import formFieldsUserInfo from './formFieldsUserInfo';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 class RegisterUserPage extends Component {
   renderFields() {    
@@ -20,7 +22,9 @@ class RegisterUserPage extends Component {
           <div style={{ position: 'relative', height: '20rem'}}>
             {this.renderFields()}
             <hr></hr>
-            <button type="submit" className="btn btn-primary right">Continue<i className="fas fa-arrow-right" style={{marginLeft: '4px'}}></i></button>
+            <div className='button-right'>
+              <button type="submit" className="btn btn-primary right">Continue<FontAwesomeIcon icon={faArrowRight} style={{marginLeft: '6px'}} /></button>
+            </div>
           </div>
         </form>
       </div>
