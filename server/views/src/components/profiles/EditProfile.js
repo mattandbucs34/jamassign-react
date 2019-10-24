@@ -13,6 +13,7 @@ class EditProfile extends Component {
     this.state = {
       isLoading: true,
       profile: [],
+      newValues: []
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -22,7 +23,7 @@ class EditProfile extends Component {
   async componentDidMount() {
     try{
       await this.props.fetchUser();
-      await this.props.viewAccount(this.props.auth.id);
+      await this.props.viewAccount(this.props.user.id);
       this.setState({
         isLoading: false,
         profile: this.props.profile.profile.profile
@@ -46,7 +47,7 @@ class EditProfile extends Component {
       return (
         <div key={name} className='form-group'>
           <label htmlFor={name}>{label}</label>
-          <input type='text' className='form-control' name={name} value={this.state.profile[name]} onChange={this.handleChange} />
+          <input type='text' className='form-control' name={name} defaultValue={this.state.profile[name]} onChange={this.handleChange} />
         </div>
       )
     })
@@ -54,7 +55,7 @@ class EditProfile extends Component {
   
   handleChange(e) {
     let updatedProfile = Object.assign({}, this.state);
-    updatedProfile.profile[e.target.name] = e.target.value;
+    updatedProfile.newValues[e.target.name] = e.target.value;
 
     this.setState(updatedProfile)
     console.log(this.state);
@@ -63,7 +64,7 @@ class EditProfile extends Component {
   renderContent() {
     if(this.state.isLoading) {
       return "Please Wait..."
-    }else if(!this.props.auth) {
+    }else if(!this.props.user) {
       return <Redirect to='/' />
     }else {
       return (
@@ -71,23 +72,23 @@ class EditProfile extends Component {
           <h2 className='page-heading'>User Account</h2>
           <hr />
           <div className='row'>
-            <form className='col-md-8 col-10 jam-form profile-form' onSubmit={()=> this.props.editProfile(this.state.profile, this.props.auth.id)} >
+            <form className='col-md-8 col-10 jam-form profile-form' onSubmit={()=> this.props.editProfile(this.state.newValues, this.props.user.id)} >
               {this.renderFields()}
               <div className="row">
                 <div className='form-group col-md-4 col-4'>
                   <label htmlFor='state'>State:</label>
-                  <select name='state' className="form-control" value={this.state.profile.state} onChange={this.handleChange}>
+                  <select name='state' className="form-control" defaultValue={this.state.profile.state} onChange={this.handleChange}>
                     {this.renderFiftyStates()}
                   </select>
                 </div>
                 <div className='form-group'>
                   <label htmlFor='zip'>Zip Code: <small>#####</small></label>
-                  <input className='form-control' name='zip' type='text' value={this.state.profile.zip} onChange={this.handleChange} />
+                  <input className='form-control' name='zip' type='text' defaultValue={this.state.profile.zip} onChange={this.handleChange} />
                 </div>
               </div>
               <div className='form-group'>
                 <label htmlFor='mobile'>Mobile Number: <small>###-###-####</small></label>
-                <input className='form-control' name='mobile' value={this.state.profile.mobile} type='tel' onChange={this.handleChange} />
+                <input className='form-control' name='mobile' defaultValue={this.state.profile.mobile} type='tel' onChange={this.handleChange} />
               </div>
               <div className='button-right'>
                 <button type='button' onClick={this.props.cancelEdit} className='btn btn-outline-danger'>Cancel</button>
@@ -105,11 +106,8 @@ class EditProfile extends Component {
   }
 }
 
-let mapState = ({ auth, profile, views }) => {
-  return { auth, profile, views }
+let mapState = ({ profile, user, views }) => {
+  return { profile, user, views }
 }
 
-function test() {
-  console.log("this is a test")
-}
 export default connect(mapState, actions)(withRouter(EditProfile));

@@ -42,14 +42,15 @@ module.exports = {
   },
 
   async get(req, callback){
+    console.log(req.user.id);
     let result = {};
-    let err;
     try {
       const profile = await Profile.findOne({ where: {userId: req.user.id }});
       result['profile'] =  profile;
-      return result;
+      return callback(null, result);
     }catch(err) {
-      return err;
+      console.log(err);
+      return callback(err);
     }
   },
 

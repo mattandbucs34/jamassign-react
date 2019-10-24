@@ -14,17 +14,19 @@ import Profile from './profiles/Profile';
 import ProfileList from './profiles/ProfileList';
 import RegisterPage from './register_forms/RegisterPage';
 import SignInPage from './sign_in/SignInPage';
+import CreateSite from './Sites/SiteCreate';
+import EditSite from './Sites/SiteEdit';
+import SiteDashboard from './Sites/SiteDashboard';
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
-    
   }
 
-  async componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps) {
     if(this.props.user.id !== prevProps.user.id) {
-      await this.props.fetchUser();
-      await this.props.fetchUserProfile();
+      this.props.fetchUser();
+      this.props.fetchUserProfile();
     }
   }
 
@@ -33,7 +35,6 @@ class App extends Component {
       <div>
       <Header />
       <Container>
-        
         <Route exact path='/' component={Landing} />
         <Route path='/register' component={RegisterPage} />
         <Route path='/sign_in' component={SignInPage} />
@@ -42,6 +43,9 @@ class App extends Component {
         <Route exact path='/:id/articles/dashboard' component={NewsPage} />
         <Route path='/:id/articles/:articleId/edit/' component={EditNews} />
         <Route path='/:id/profile' component={Profile} />
+        <Route path='/sites/dashboard' component={SiteDashboard} />
+        <Route path='/sites/create' component={CreateSite} />
+        <Route path='/sites/:siteId/edit' component={EditSite} />
       </Container>
       </div>
     )

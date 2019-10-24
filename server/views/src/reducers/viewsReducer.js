@@ -6,7 +6,9 @@ import {
   VIEW_EDIT_NEWS,
   VIEW_EDIT_PROFILE,
   VIEW_NEWS_DASHBOARD,
-  VIEW_LIST
+  VIEW_LIST,
+  VIEW_SITES_DASHBOARD,
+  VIEW_SITES_EDIT
 } from '../actions/types';
 
 export default (state = {}, action) => {
@@ -18,6 +20,8 @@ export default (state = {}, action) => {
     case VIEW_EDIT_PROFILE:
     case VIEW_NEWS_DASHBOARD:
     case VIEW_LIST:
+    case VIEW_SITES_DASHBOARD:
+    case VIEW_SITES_EDIT:
       return action.payload;
     case RESET_VIEWS:
     default:

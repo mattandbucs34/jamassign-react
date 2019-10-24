@@ -1,10 +1,14 @@
 import axios from 'axios';
 import {
   ADD_NEWS,
+  ADD_SITE,
   ADD_USER,
   DESTROY_ARTICLE,
+  DESTROY_SITE,
   EDIT_ARTICLE,
   EDIT_PROFILE,
+  EDIT_SITE,
+  FETCH_ALL_SITES,
   FETCH_ALL_USER_NEWS,
   FETCH_PROFILE,
   FETCH_NEWS,
@@ -19,6 +23,8 @@ import {
   VIEW_EDIT_PROFILE,
   VIEW_LIST,
   VIEW_NEWS_DASHBOARD,
+  VIEW_SITES_DASHBOARD,
+  VIEW_SITES_EDIT,
 } from './types';
 
 //POST Actions
@@ -54,8 +60,25 @@ export const destroyArticle = (articleId, id) => async dispatch => {
   dispatch({ type: DESTROY_ARTICLE, payload: res.data });
 }
 
-//Fetch Actions
+export const createSite = (siteData, history) => async dispatch => {
+  const res = await axios.post('/api/sites/create', siteData);
+  // history.push('/sites/dashboard')
+  dispatch({ type: ADD_SITE, payload: res.data });
+}
 
+export const editSite = (siteId, updatedSite) => async dispatch => {
+  const res = await axios.post(`/api/sites/${siteId}/update`, updatedSite);
+  // history.push('/sites/dashboard');
+  dispatch({ type: EDIT_SITE, payload: res.data });
+}
+
+export const destroySite = (siteId, id) => async dispatch => {
+  const res = await axios.post(`/api/sites/${siteId}/delete`);
+  console.log(res);
+  dispatch( { type: DESTROY_SITE, payload: res.data });
+}
+
+//Fetch Actions
 export const fetchUser = () => async dispatch => {
   const res = await axios.get('/users/current_user');
   dispatch({ type: FETCH_USER, payload: res.data });
@@ -67,8 +90,10 @@ export const fetchUserProfile = () => async dispatch => {
 }
 
 
-export const signInUser = (formValues) => async dispatch => {
+export const signInUser = (formValues, history) => async dispatch => {
   const res = await axios.post('/users/sign_in', formValues.values);
+  console.log('signing in')
+  // history.push('/dashboard')
   dispatch({ type: SIGN_IN_USER, payload: res.data });
 };
 
@@ -79,8 +104,12 @@ export const fetchNews = () => async dispatch => {
 
 export const fetchTrashNews = (id) => async dispatch => {
   const res = await axios.get(`/news/${id}/articles/trash`);
-  console.log(res.data)
   dispatch({ type: FETCH_ALL_USER_NEWS, payload: res.data })
+}
+
+export const fetchAllSites = () => async dispatch => {
+  const res = await axios.get('/api/sites/all');
+  dispatch({ type: FETCH_ALL_SITES, payload: res.data });
 }
 
 //Views Actions
@@ -121,4 +150,18 @@ export const viewEditNews = (id, articleId) => async dispatch => {
 
 export const resetViews = () => async dispatch => {
   dispatch({ type: RESET_VIEWS, payload: null })
+}
+
+export const viewSitesDashboard = (history) => async dispatch => {
+  const res = await axios.get('/api/sites/dashboard');
+  dispatch({ type: VIEW_SITES_DASHBOARD, payload: res.data })
+}
+
+export const viewSitesEdit = (siteId, location) => async dispatch => {
+  try{
+    const res = await axios.get(`/api/sites/${siteId}/edit`);
+    dispatch({ type: VIEW_SITES_EDIT, payload: res.data });
+  }catch(err) {
+    console.log(err);
+  }
 }

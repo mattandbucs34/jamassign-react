@@ -86,7 +86,7 @@ module.exports = {
       if(authorized) {
         try {
           await articles.update(updatedNews, { fields: Object.keys(updatedNews) });
-          return news;
+          return articles;
         }catch(err) {
           console.log(err);
         }

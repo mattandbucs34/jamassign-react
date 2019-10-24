@@ -13,7 +13,7 @@ class DefaultNav extends Component {
           <Link to='/show-list' className='nav-link'>List</Link>
         </div>
         <div className='nav-item ml-auto' data-toggle='collapse' data-target='.navbar-collapse.show'>
-          <Link to= {`/${this.props.auth.id}/profile`} className='nav-link'>Account</Link>
+          <Link to= {`/${this.props.user.id}/profile`} className='nav-link'>Account</Link>
         </div>
         <div className='nav-item ml-auto' data-toggle='collapse' data-target='.navbar-collapse.show'>
           <a href='/users/logout' className='nav-link'>
@@ -25,9 +25,9 @@ class DefaultNav extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ user }) => {
   // console.log(({ user }))
-  return { auth }
+  return { user }
 }
 
 export default connect(mapStateToProps)(DefaultNav);

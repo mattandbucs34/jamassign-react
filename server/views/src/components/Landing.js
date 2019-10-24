@@ -2,7 +2,6 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import * as actions from '../actions';
 
 import Messages from './Messages';
 
@@ -19,6 +18,11 @@ class Landing extends Component {
   componentDidMount() {
     if(_.isEmpty(this.props.views)) {
       return
+    }else if(!this.props.user) {
+      this.setState({
+        message: this.props.message,
+        type: this.props.type
+      });
     }else if(!this.props.views.auth) {
       this.setState({
         message: this.props.views.message,
@@ -30,9 +34,11 @@ class Landing extends Component {
   }
   
   renderMessage() {
-    if(this.props.views.auth === false) {
-      return <Messages message={this.state.message} 
-      type={this.state.type} />
+    if(!this.props.user === undefined) {
+      let message = 'You must be logged in';
+      let type = 'warning';
+      return <Messages message={message} 
+      type={type} />
     }else {
       return
     }
@@ -50,8 +56,8 @@ class Landing extends Component {
   }
 }
 
-function mapStateToProps({ auth, user, views }) {
-  return { auth, user, views }
+function mapStateToProps({ user, views }) {
+  return { user, views }
 }
 
-export default connect(mapStateToProps, actions)(withRouter(Landing));
+export default connect(mapStateToProps)(withRouter(Landing));

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import * as actions from '../../actions';
+import { Redirect, withRouter } from 'react-router-dom';
+import { signInUser } from '../../actions';
 
 import SignInForm from './SignInForm';
 
@@ -17,10 +17,11 @@ class SignInPage extends Component {
   }
 }
 
-function mapStateToProps({ form }) {
+function mapStateToProps({ form, user }) {
   return {
-    formValues: form.signInForm
+    formValues: form.signInForm,
+    user
   }
 }
 
-export default connect(mapStateToProps, actions)(withRouter(SignInPage));
+export default connect(mapStateToProps, { signInUser })(withRouter(SignInPage));

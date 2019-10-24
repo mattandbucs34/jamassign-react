@@ -12,24 +12,23 @@ module.exports = {
     });
   },
 
-  async get(req, res) {
+  get(req, res) {
     const authorized = new Authorizer(req.user).show();
 
     if(authorized){
-      let err;
-      try{
-        let result;
-        const data = await profileQueries.get(req, (err, result));
-        res.send({
-          profile: {...data},
-          auth: true
-        })
-      }catch(err) {
-        console.log(err);
-        res.send("No profile found line 29")
-      }
+        profileQueries.get(req, (err, result) => {
+          if(err || result == null) {
+            console.log(err);
+            res.send("No profile found, Line 22")
+          }else {
+            res.send({
+              profile: {...result},
+              auth: true
+            })
+          }
+        });
     }else {
-      res.send("No Profile Found line 32")
+      res.send("You are not authorized, line 31")
     }
   },
 
@@ -38,7 +37,7 @@ module.exports = {
 
     if(!authorized) {
       res.send({
-        auth: false,
+        status: 401,
         message: 'You are not a goat to view that. Please log in',
         type: 'warning'
       })
@@ -54,7 +53,7 @@ module.exports = {
 
     if(!authorized) {
       res.send({
-        auth: false,
+        status: 401,
         message: 'You are not authorized to view that. Please log in',
         type: 'warning'
       })
@@ -85,7 +84,7 @@ module.exports = {
 
     if(!authorized){
       res.send({
-        auth: false,
+        status: 401,
         message: 'You are not authorized to do that. Please log in.',
         type: 'danger'
       })

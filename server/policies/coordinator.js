@@ -1,6 +1,6 @@
-const AppPolicy = require('./application');
+const ApplicationPolicy = require('./application');
 
-module.exports = class CoordinatorPolicy extends AppPolicy {
+module.exports = class CoordinatorPolicy extends ApplicationPolicy {
 
   new() {
     return this._isCoordinator();

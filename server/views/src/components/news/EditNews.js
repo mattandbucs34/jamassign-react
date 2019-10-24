@@ -16,7 +16,7 @@ class EditNews extends Component {
   
   async componentDidMount() {
     try {
-      await this.props.viewEditNews(this.props.auth.id, this.props.match.params.articleId);
+      await this.props.viewEditNews(this.props.user.id, this.props.match.params.articleId);
       this.setState({ article: this.props.views.article, isLoading: false });
       console.log("Mounted")
     }catch(err) {
@@ -35,7 +35,7 @@ class EditNews extends Component {
   renderContent() {
     if(this.state.isLoading) {
       return "Please Wait..."
-    }else if (!this.props.views.auth) {
+    }else if (!this.props.views.user) {
       return <Redirect to='/' />
     }else {
       return (
@@ -61,7 +61,7 @@ class EditNews extends Component {
                   onClick={() => this.props.editArticle(
                     this.state.article,
                     this.props.match.params.articleId,
-                    this.props.auth.id
+                    this.props.user.id
                   )}>Update
                 </button>
               </div>
@@ -77,9 +77,8 @@ class EditNews extends Component {
   }
 }
 
-const mapStateToProps = ({auth, news, views}) => {
-  console.log({ news })
-  return {auth, news, views}
+const mapStateToProps = ({ news, user, views }) => {
+  return { news, user, views }
 }
 
 export default connect(mapStateToProps, { editArticle, viewEditNews })(withRouter(EditNews));

@@ -57,7 +57,6 @@ class showNews extends Component {
 }
 
 function mapStateToProps({ news }){
-  console.log({ news })
   return({ news: news.news })
 }
 

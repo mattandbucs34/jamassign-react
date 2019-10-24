@@ -16,7 +16,7 @@ class ActiveNews extends Component {
 
   async componentDidMount(){
     try {
-      const newsArticles = await axios.get(`/news/${this.props.auth.id}/articles/trash`)
+      const newsArticles = await axios.get(`/news/${this.props.user.id}/articles/trash`)
 
       this.setState({
         articles: newsArticles.data.articles,
@@ -29,14 +29,14 @@ class ActiveNews extends Component {
   }
 
   async handleClick(id) {
-    await this.props.viewEditNews(this.props.auth.id, id);
+    await this.props.viewEditNews(this.props.user.id, id);
   }
 
   permDelete(id) {
     let filteredArticles = this.state.articles.filter(article => article.id !== id)
     this.setState({ articles: filteredArticles})
     console.log(this.state.articles)
-    this.props.destroyArticle(id, this.props.auth.id);
+    this.props.destroyArticle(id, this.props.user.id);
   }
 
   renderArticles() {
@@ -46,12 +46,12 @@ class ActiveNews extends Component {
           <div className={articles.trash ? 'news-header trash' : 'news-header'}>
             {articles.subject}
             <div id='coordinator-news-head'>
-              <Link to={`/${this.props.auth.id}/articles/${articles.id}/edit`} 
-                className='btn article-options' 
+              <Link to={`/${this.props.user.id}/articles/${articles.id}/edit`} 
+                className='btn edit-btn' 
                 onClick={() => this.handleClick(articles.id)} >
                   <i className='fas fa-pencil-alt'></i>
               </Link>
-              <button className='btn article-options' id='coordinator-news-delete' onClick={() => this.permDelete(articles.id)}><i className='far fa-trash-alt'></i></button>
+              <button className='btn delete-btn' id='coordinator-news-delete' onClick={() => this.permDelete(articles.id)}><i className='far fa-trash-alt'></i></button>
             </div>
           </div>
           <div className='news-body'>
@@ -67,8 +67,8 @@ class ActiveNews extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
-  return { auth }
+const mapStateToProps = ({ user }) => {
+  return { user }
 }
 
 export default connect(mapStateToProps, { destroyArticle })(ActiveNews);

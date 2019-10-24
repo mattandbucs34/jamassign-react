@@ -10,7 +10,7 @@ import NavbarInitial from './navigation_bars/InitialNav';
 class Header extends Component {
  
   renderNav() {
-    switch (this.props.auth.role) {
+    switch (this.props.user.role) {
       case undefined:
       case null:
         return <NavbarInitial />
@@ -24,7 +24,7 @@ class Header extends Component {
   render() {
     return (
       <nav className='navbar navbar-expand-md navbar-dark bg-dark'>
-        <Link to={(this.props.auth.user) ? '/dashboard' : '/'} className='navbar-brand'>
+        <Link to={(this.props.user) ? '/dashboard' : '/'} className='navbar-brand'>
           JAM Officials
         </Link>
         <button className='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation'>
@@ -38,8 +38,8 @@ class Header extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
-  return { auth }
+function mapStateToProps({ user }) {
+  return { user }
 }
 
 export default connect(mapStateToProps)(Header);

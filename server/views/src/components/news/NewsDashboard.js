@@ -23,14 +23,14 @@ class UserNews extends Component {
   
 
   async componentDidMount(){
-    try {
-      await this.props.fetchUser();
-      await this.props.viewNewsDashboard(this.props.auth.id);
-      this.setState({ isLoading: false })
-    }catch(err) {
-      console.log(err);
-      this.setState({ isLoading: false });
-    }
+    // try {
+    //   await this.props.fetchUser();
+    //   await this.props.viewNewsDashboard(this.props.auth.id);
+    //   this.setState({ isLoading: false })
+    // }catch(err) {
+    //   console.log(err);
+    //   this.setState({ isLoading: false });
+    // }
   }
 
   showActiveNews() {
@@ -80,10 +80,11 @@ class UserNews extends Component {
   }
 
   renderContent() {
-    if(this.state.isLoading || !this.props.auth) {
-      return 'Please Wait...';
-    }else if(!this.props.views.auth) {
-      return <Redirect to='/' />
+    const { user } = this.props;
+    if(!user.loggedIn) {
+      return <Redirect to='/' />;
+    }else if(user.role !== 'coordinator') {
+      return <Redirect to='/dashboard' />
     }else {
       return (
         <div>
@@ -122,8 +123,8 @@ class UserNews extends Component {
   }
 }
 
-const mapStateToProps = ({ auth, news, views }) => {
-  return { auth, news, views }
+const mapStateToProps = ({ news, user }) => {
+  return { news, user }
 }
 
 export default connect(mapStateToProps, actions)(withRouter(UserNews));

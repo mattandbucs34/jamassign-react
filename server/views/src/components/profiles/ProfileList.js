@@ -84,7 +84,7 @@ class ProfileList extends Component {
   }
 
   renderDelete(id) {
-    if(this.props.auth.role === 'coordinator'){
+    if(this.props.user.role === 'coordinator'){
       return(
         <button type='button' className='btn delete-btn' onClick={() => this.deleteUser(id)}><FontAwesomeIcon icon={faTrashAlt} /></button>
       )
@@ -108,8 +108,8 @@ class ProfileList extends Component {
   renderNames() {
     return this.state.profiles.map(profiles => {
       return (
-        <div key={profiles.id} className='row name-row'>
-          <div className='name-cell col-md-8 col-6'>
+        <div key={profiles.id} className='row display-row'>
+          <div className='col-md-8 col-6'>
             <Link to="#" onClick={() => this.handleShow(profiles.id)}>{profiles.lastName}, {profiles.firstName}</Link>
           </div>
           <div className='phone-cell col-md-4 col-6'>
@@ -150,8 +150,8 @@ class ProfileList extends Component {
   }
 }
 
-function mapStateToProps( { auth, views } ) {
-  return { auth, views }
+function mapStateToProps( { user, views } ) {
+  return { user, views }
 }
 
 export default connect(mapStateToProps, { viewList })(withRouter(ProfileList));

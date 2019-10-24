@@ -15,21 +15,8 @@ class AddNewsPage extends Component {
     }
   }
 
-	// async componentDidMount() {
-	// 	console.log(this.props)
-	// 	try {
-  //     await this.props.viewAddNews();
-  //     this.setState({ isLoading: false })
-  //   }catch(err) {
-  //     this.setState({
-  //       err,
-  //       isLoading: false
-  //     })
-  //   }
-	// }
-
 	createNews(formValues, history) {
-		this.props.createNews(this.props.auth.id, formValues, history);
+		this.props.createNews(this.props.user.id, formValues, history);
 		this.props.onCreateNews()
 	}
 
@@ -52,9 +39,9 @@ class AddNewsPage extends Component {
 	}
 }
 
-function mapStateToProps({ auth, form, views }) {
+function mapStateToProps({ form, user, views }) {
   return {
-		auth,
+		user,
 		formValues: form.addNewsForm,
 		views
   }

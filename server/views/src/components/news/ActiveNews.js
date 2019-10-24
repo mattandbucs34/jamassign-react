@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { trashArticle } from '../../actions'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 class ActiveNews extends Component {
   constructor(props) {
@@ -16,7 +19,7 @@ class ActiveNews extends Component {
 
   async componentDidMount(){
     try {
-      const newsArticles = await axios.get(`/news/${this.props.auth.id}/articles`)
+      const newsArticles = await axios.get(`/news/${this.props.user.id}/articles`)
 
       this.setState({
         articles: newsArticles.data.articles,
@@ -46,12 +49,14 @@ class ActiveNews extends Component {
           <div className={articles.trash ? 'news-header trash' : 'news-header'}>
             <h6>{articles.subject}</h6>
             <div id='coordinator-news-head'>
-              <Link to={`/${this.props.auth.id}/articles/${articles.id}/edit`}
-                className='btn article-options' 
+              <Link to={`/${this.props.user.id}/articles/${articles.id}/edit`}
+                className='btn edit-btn' 
                 onClick={() => this.handleClick(articles.id)} >
-                  <i className='fas fa-pencil-alt'></i>
+                  <FontAwesomeIcon icon={faPencilAlt} />
               </Link>
-              <button className='btn article-options' id='coordinator-news-delete' onClick={() => this.handleDelete(articles.id)}><i className='far fa-trash-alt'></i></button>
+              <button className='btn delete-btn' id='coordinator-news-delete' onClick={() => this.handleDelete(articles.id)}>
+                <FontAwesomeIcon icon={faTrashAlt} />
+              </button>
             </div>
           </div>
           <div className='news-body'>
@@ -67,8 +72,8 @@ class ActiveNews extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
-  return { auth }
+const mapStateToProps = ({ user }) => {
+  return { user }
 }
 
 export default connect(mapStateToProps, { trashArticle })(ActiveNews);

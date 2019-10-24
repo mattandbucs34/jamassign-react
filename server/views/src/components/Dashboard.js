@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faNewspaper } from '@fortawesome/free-regular-svg-icons';
 import { faSchool } from '@fortawesome/free-solid-svg-icons';
-import * as actions from '../actions';
+import { fetchAllSites, viewDashboard } from '../actions';
 
 import News from './news/ShowNews';
 
@@ -20,19 +20,22 @@ class Dashboard extends Component {
   async componentDidMount() {
     try {
       await this.props.viewDashboard();
-      this.setState({ isLoading: false })
+      await this.props.fetchAllSites();
+      // this.setState({ isLoading: false })
     }catch(err) {
-      this.setState({
-        err,
-        isLoading: false
-      })
+      console.log(err);
+      // this.setState({
+      //   err,
+      //   isLoading: false
+      // })
     }
   }
 
   renderContent() {
-    if(this.state.isLoading) {
-			return "Please wait...";
-		}else if(!this.props.views.auth) {
+    // if(this.state.isLoading) {
+		// 	return "Please wait...";
+    // }else 
+    if(!this.props.user.loggedIn) {
 			return <Redirect to='/' />
 		}else {
       return (
@@ -40,7 +43,7 @@ class Dashboard extends Component {
           <div className='col-md-3'>
             <div className='dash-sidebar'>
               <Link to='/:id/articles/dashboard' className='btn' ><FontAwesomeIcon icon={faNewspaper} /> &nbsp; Article Actions</Link>
-              <Link to='#' className='btn' ><FontAwesomeIcon icon={faSchool} /> &nbsp; School Actions</Link>
+              <Link to='/sites/dashboard' className='btn' ><FontAwesomeIcon icon={faSchool} /> &nbsp; School Actions</Link>
             </div>
           </div>
           <div className='col-md-9'>
@@ -70,8 +73,8 @@ class Dashboard extends Component {
   }
 }
 
-function mapStateToProps({ user, views }) {
-  return { user, views };
+function mapStateToProps({ sites, user, views }) {
+  return { sites, user, views };
 }
 
-export default connect(mapStateToProps, actions)(withRouter(Dashboard));
+export default connect(mapStateToProps, { fetchAllSites, viewDashboard })(withRouter(Dashboard));

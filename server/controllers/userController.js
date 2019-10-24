@@ -59,7 +59,7 @@ module.exports = {
         id: null,
         email: null,
         role: null,
-        user: false,
+        loggedIn: false,
         message: 'You must be logged in to view that',
         type: 'warning'
       })
@@ -68,7 +68,7 @@ module.exports = {
         id: req.user.id,
         email: req.user.userEmail,
         role: req.user.role,
-        user: true,
+        loggedIn: true,
       })
     }
   },
@@ -86,7 +86,7 @@ module.exports = {
           id: null,
           email: null,
           role: null,
-          user: false,
+          loggedIn: false,
           message: 'Invalid Email or Password',
           type: 'danger'
         })
@@ -98,7 +98,7 @@ module.exports = {
           id: req.user.id,
           email: req.user.userEmail,
           role: req.user.role,
-          user: true
+          loggedIn: true
         })
       }
     })(req, res, next);
@@ -111,7 +111,7 @@ module.exports = {
 
   showDashboard(req, res) {
     const authorized = new Authorizer(req.user).show()
-
+    
     if(!authorized) {
       console.log('You are not authorized');
       res.send({

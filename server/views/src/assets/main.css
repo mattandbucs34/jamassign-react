@@ -106,24 +106,28 @@ body {
 .list-group {
   margin-top: 10px;
   margin-bottom: 25px;
-  background-color: white;
 }
 
-.name-row{
-  margin: 0;
-  border: inset;
+.display-row{
+  display: flex;
+  padding: 10px 0;
+  margin-bottom: .25rem;
+  border: 1px solid lightskyblue;
+  border-radius: 3px;
+  align-items: center;
+  box-shadow: 2px 2px 5px grey;
 }
 
-.name-row:nth-child(even){
+.display-row:nth-child(even){
   background-color: rgba(255, 254, 218, 0.6);
 }
 
-.name-row:nth-child(odd){
+.display-row:nth-child(odd){
   background-color: rgba(255, 255, 255);
 }
 
-.name-cell, .phone-cell {
-  padding: 5px;
+.display-cell, .phone-cell {
+  padding: 0px;
 }
 
 .phone-cell {
@@ -133,7 +137,7 @@ body {
 .delete-btn {
   background-color: rgb(220,220,220,50%);
   border-radius: 100%;
-  margin-left: 15px;
+  margin: 0 15px;
   padding: 0.175rem 0.5rem;
 }
 
@@ -181,7 +185,7 @@ textarea.news-msg {
   margin: 10px 10px 30px 10px;
 }
 
-.article-options {
+.edit-btn, .delete-btn {
   border-radius: 100%;
 }
 
@@ -195,6 +199,9 @@ textarea.news-msg {
 }
 
 #news-sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   border-right: 1px solid lightgrey;
 }
 
@@ -234,11 +241,13 @@ textarea.news-msg {
   #news-sidebar {
     border-bottom: 1px solid lightgrey;
     border-right: none;
+    flex-direction: row;
   }
 }
 
 @media (min-width: 992px) {
   #newsContainer {
     height: 45rem;
+    overflow-y: scroll;
   }
 }

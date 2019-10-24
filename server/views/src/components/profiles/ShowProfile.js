@@ -13,7 +13,7 @@ class ShowProfile extends Component {
 
   async componentDidMount() {
     try{
-      await this.props.viewAccount(this.props.auth.id);
+      await this.props.viewAccount(this.props.user.id);
       this.setState({
         isLoading: false,
         profile: this.props.profile.profile.profile
@@ -90,9 +90,9 @@ class ShowProfile extends Component {
   }
 }
 
-let mapState = ({ auth, profile, views }) => {
-  console.log({ auth, profile })
-  return { auth, profile, views }
+let mapState = ({ profile, user, views }) => {
+  console.log({ profile })
+  return { profile, user, views }
 }
 
 export default connect(mapState, { fetchUserProfile, viewAccount })(ShowProfile)

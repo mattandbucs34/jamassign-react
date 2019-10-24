@@ -1,4 +1,5 @@
 export default [
+  { value: 'Select State', state: null },
   { value: 'AL', state: 'Alabama'},
   { value: 'AK', state: 'Alaska'},
   { value: 'AZ', state: 'Arizona'},

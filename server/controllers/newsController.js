@@ -1,5 +1,5 @@
 const newsQuery = require('../db/queries/newsQueries');
-const Authorizer = require('../policies/newsPolicy');
+const Authorizer = require('../policies/coordinator');
 
 module.exports = {
   showPage(req, res) {
@@ -7,7 +7,7 @@ module.exports = {
     if(!authorized) {
       console.log('You are not authorized');
       res.send({
-        auth: false,
+        status: 401,
         message: 'You are not authorized. You must log in!',
         type: 'danger'
       });
@@ -57,7 +57,7 @@ module.exports = {
 
     if(!authorized){
       res.send({
-        auth: false,
+        status: 401,
         message: 'You are not authorized to do that. Please log in.',
         type: 'danger'
       })
@@ -116,7 +116,7 @@ module.exports = {
         res.send({ auth: true, article: article });
       }else {
         res.send({
-          auth: false,
+          status: 401,
           message: 'You are not authorized to do that. Please contact your coordinator.',
           type: 'danger'
         });
